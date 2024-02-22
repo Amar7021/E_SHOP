@@ -1,0 +1,33 @@
+@import "../../App.scss";
+
+.jewelery_section {
+  width: 90vw;
+  margin: 6.3rem auto 1rem;
+
+  @include xsmStyles {
+    margin: 12rem auto 1rem;
+  }
+
+  .product_heading {
+    margin-bottom: 1rem;
+  }
+
+  .category_wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    @include xsmStyles {
+      justify-content: center;
+    }
+
+    .fetchError,
+    .loading {
+      text-align: center;
+      color: var(--primary-txt-clr);
+      font-size: var(--fsize-reg);
+    }
+  }
+}

@@ -1,0 +1,67 @@
+@import "../../../App.scss";
+
+.productNav {
+  width: 100%;
+  height: 3.3rem;
+  position: fixed;
+  top: 3.3rem;
+  left: 0;
+  z-index: 99;
+  background-color: var(--primary-bg-clr);
+  display: flex;
+  align-items: center;
+  border-bottom: 0.5px solid var(--tertiary-txt-clr);
+
+  @include xsmStyles {
+    height: auto;
+    border-bottom: none;
+  }
+
+  .productNav_wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    @include xsmStyles {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    @include xsmStyles {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .category_list {
+      @include xsmStyles {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 0.5px solid var(--tertiary-txt-clr);
+
+        &:hover {
+          background-color: var(--secondary-bg-clr);
+        }
+      }
+
+      .category_link {
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        &:hover {
+          color: var(--accent-1);
+        }
+      }
+
+      .active {
+        color: var(--accent-1);
+      }
+    }
+  }
+}

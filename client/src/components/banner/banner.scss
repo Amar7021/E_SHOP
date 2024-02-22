@@ -1,0 +1,118 @@
+@import "../../App.scss";
+
+.banner {
+  width: 90vw;
+  height: 325px;
+  margin: 3rem auto 0;
+  background-color: var(--tertiary-bg-clr);
+
+  .banner_wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    @include small {
+      flex-direction: column;
+    }
+
+    @include xsmall {
+      flex-direction: column;
+    }
+
+    .img_container {
+      min-width: 300px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 1rem;
+
+      @include small {
+        width: 225px;
+      }
+
+      @include xsmall {
+        width: 225px;
+      }
+
+      .banner_img {
+        width: 100%;
+        height: 80%;
+        object-fit: contain;
+      }
+    }
+
+    .banner_contents {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1rem;
+
+      @include small {
+        align-items: center;
+      }
+
+      @include xsmall {
+        align-items: center;
+      }
+
+      .banner_heading {
+        color: var(--secondary-txt-clr);
+        font-size: var(--fsize-lg);
+
+        @include medium {
+          font-size: var(--fsize-md);
+        }
+
+        @include small {
+          font-size: var(--fsize-reg);
+        }
+
+        @include xsmall {
+          font-size: var(--fsize-reg);
+        }
+      }
+
+      .banner_para {
+        color: var(--secondary-txt-clr);
+        font-size: var(--fsize-md);
+
+        @include medium {
+          font-size: var(--fsize-semimd);
+        }
+
+        @include small {
+          font-size: var(--fsize-sm);
+          text-align: center;
+        }
+
+        @include xsmall {
+          font-size: var(--fsize-sm);
+          text-align: center;
+        }
+      }
+
+      .banner_subHeading {
+        color: var(--accent-1);
+        font-size: var(--fsize-lg);
+        font-weight: var(--fw-boldx);
+
+        @include medium {
+          font-size: var(--fsize-md);
+        }
+
+        @include small {
+          font-size: var(--fsize-reg);
+        }
+
+        @include xsmall {
+          font-size: var(--fsize-reg);
+        }
+      }
+    }
+  }
+}

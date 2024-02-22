@@ -1,0 +1,114 @@
+@import "../../App.scss";
+
+.productDetail {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 3.3rem auto 0;
+
+  .product_wrapper {
+    width: 90vw;
+    margin: 3rem auto 1rem;
+    display: flex;
+
+    @include small {
+      flex-direction: column;
+    }
+
+    @include xsmall {
+      flex-direction: column;
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 1rem;
+
+      .product_img {
+        width: 350px;
+        height: 350px;
+        object-fit: contain;
+        cursor: pointer;
+        transition: scale 0.3s ease;
+
+        @include small {
+          width: 300px;
+        }
+
+        @include xsmall {
+          width: 250px;
+        }
+
+        &:hover {
+          scale: 1.05;
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 1rem;
+      padding: 1rem 2rem 1rem;
+
+      .desc_heading,
+      .p_title {
+        font-size: var(--fsize-semimd);
+      }
+
+      .p_category {
+        font-size: var(--fsize-sm);
+        text-transform: capitalize;
+        font-weight: var(--fw-reg);
+      }
+
+      .desc {
+        font-size: var(--fsize-sm);
+        padding: 10px 0;
+      }
+
+      .p_price {
+        color: var(--accent-1);
+      }
+
+      .product_delivery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        border-bottom: 0.5px solid var(--tertiary-txt-clr);
+
+        .delivery_specs {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+
+          &:hover {
+            color: var(--accent-1);
+          }
+        }
+      }
+
+      .addBtns {
+        .addToCartBtn {
+          background-color: var(--tertiary-bg-clr);
+          color: var(--secondary-txt-clr);
+          border-radius: var(--border-rd-sm);
+          padding: 10px;
+          cursor: pointer;
+          font-size: var(--fsize-reg);
+          font-weight: var(--fw-boldsemi);
+          margin-top: 1rem;
+          transition: opacity 0.3s ease;
+
+          &:hover {
+            opacity: 0.85;
+          }
+        }
+      }
+    }
+  }
+}

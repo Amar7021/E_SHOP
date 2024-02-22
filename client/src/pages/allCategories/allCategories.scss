@@ -1,0 +1,60 @@
+@import "../../App.scss";
+
+.category_section {
+  width: 90vw;
+  margin: 6.3rem auto 1rem;
+
+  @include xsmStyles {
+    margin: 12rem auto 1rem;
+  }
+
+  .product_heading {
+    margin-bottom: 1rem;
+  }
+
+  .category_wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    @include xsmStyles {
+      justify-content: center;
+    }
+
+    .fetchError,
+    .loading {
+      text-align: center;
+      color: var(--primary-txt-clr);
+      font-size: var(--fsize-reg);
+    }
+  }
+
+  .pagination {
+    padding: 10px;
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    span {
+      padding: 15px 20px;
+      border: 1px solid var(--tertiary-txt-clr);
+      cursor: pointer;
+    }
+
+    .pagination_selected {
+      background-color: var(--tertiary-bg-clr);
+      color: var(--secondary-txt-clr);
+    }
+
+    .pagination_disable {
+      display: none;
+    }
+
+    .pagination_icon {
+      font-size: var(--fsize-reg);
+    }
+  }
+}

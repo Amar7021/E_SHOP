@@ -1,0 +1,19 @@
+.star_rating {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  .fav_icon {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    cursor: pointer;
+  }
+
+  .stars {
+    .star_icon {
+      font-size: var(--fsize-semimd);
+    }
+  }
+}

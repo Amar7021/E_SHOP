@@ -1,0 +1,245 @@
+@import "../../../App.scss";
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+  background-color: var(--secondary-bg-clr);
+
+  #navbar {
+    height: 3.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 2rem;
+    padding: 0 2rem;
+
+    @include xsmStyles {
+      padding: 0;
+    }
+
+    .logo {
+      font-family: "Dancing Script", cursive;
+      font-weight: var(--fw-black);
+      font-size: var(--fsize-md);
+      color: var(--primary-txt-clr);
+
+      @include xsmStyles {
+        font-size: 1.2rem;
+      }
+    }
+
+    .nav_list {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      @include xsmStyles {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2rem;
+        margin-left: 10px;
+        position: fixed;
+        inset: 0 0 0 25%;
+        background-color: hsla(0, 0%, 10%, 0.75);
+        padding: min(10vh, 10rem) 3em;
+        backdrop-filter: blur(24px);
+        transform: translateX(100%);
+        transition: transform 400ms ease-out;
+
+        &.visible {
+          transform: translateX(0%);
+        }
+      }
+
+      .nav_item {
+        width: max-content;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        .nav_link {
+          position: relative;
+          color: var(--primary-txt-clr);
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+
+          .fav_icon {
+            font-size: var(--fsize-reg);
+            font-weight: var(--fw-reg);
+            margin-left: 5px;
+          }
+
+          @include xsmStyles {
+            color: var(--secondary-txt-clr);
+          }
+
+          &:hover {
+            color: var(--secondary-txt-clr);
+          }
+
+          .username {
+            font-size: var(--fsize-reg);
+            font-weight: var(--fw-reg);
+
+            @include xsmStyles {
+              color: var(--secondary-txt-clr);
+            }
+          }
+
+          .shop_icon {
+            font-size: 1.3rem;
+            font-weight: var(--fw-reg);
+          }
+
+          .cart_notification {
+            position: absolute;
+            bottom: 14px;
+            left: 10px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--tertiary-bg-clr);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+              font-size: 0.7rem;
+              font-weight: var(--fw-black);
+              color: var(--secondary-txt-clr);
+            }
+          }
+        }
+
+        .active {
+          font-weight: var(--fw-bold);
+
+          @include xsmStyles {
+            font-weight: var(--fw-black);
+            color: var(--primary-txt-clr);
+          }
+        }
+
+        .profile {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: var(--tertiary-bg-clr);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+
+          .profileIcon {
+            font-size: var(--fsize-reg);
+            font-weight: var(--fw-bold);
+            color: var(--secondary-txt-clr);
+          }
+        }
+
+        .dropdown {
+          position: relative;
+          display: flex;
+          align-items: center;
+          transition: transform all 0.3s;
+          z-index: var(--z-fixed);
+
+          .arrow_icon {
+            color: var(--primary-txt-clr);
+            transition: rotate 0.3s;
+
+            @include xsmStyles {
+              color: var(--secondary-txt-clr);
+            }
+
+            &:hover {
+              rotate: 180deg;
+            }
+          }
+
+          .dropdown_links {
+            display: none;
+            position: absolute;
+            top: 1.8rem;
+            right: -10px;
+
+            &::before {
+              content: "";
+              position: absolute;
+              width: 15px;
+              height: 15px;
+              top: -5px;
+              right: 14px;
+              transform: rotate(45deg) translate(-7.5%, -6%);
+              background-color: var(--tertiary-bg-clr);
+            }
+
+            .logout,
+            .whishlist {
+              color: var(--secondary-txt-clr);
+              font-size: var(--fsize-reg);
+
+              &:hover {
+                font-weight: var(--fw-black);
+              }
+            }
+          }
+
+          &:hover {
+            .dropdown_links {
+              background-color: var(--tertiary-bg-clr);
+              width: max-content;
+              height: max-content;
+              border-radius: var(--border-rd-sm);
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              gap: 1rem;
+              padding: 1rem 2rem;
+            }
+          }
+        }
+      }
+
+      .nav_close {
+        background-color: transparent;
+        color: var(--secondary-txt-clr);
+        position: absolute;
+        top: 1rem;
+        right: 3.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        @include large {
+          display: none;
+        }
+
+        .fa-xmark {
+          font-size: var(--fsize-md);
+        }
+      }
+    }
+
+    #nav-toggle {
+      background-color: transparent;
+      color: var(--secondary-txt-clr);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      @include large {
+        display: none;
+      }
+
+      .fa-bars {
+        font-size: var(--fsize-md);
+      }
+    }
+  }
+}

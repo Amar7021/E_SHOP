@@ -1,0 +1,208 @@
+@import "../../App.scss";
+.login {
+  min-height: calc(100vh - 3.3rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 4rem auto 1rem;
+
+  .register_section {
+    min-width: 100%;
+
+    @include medium {
+      min-width: 40vw;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+      align-items: center;
+      border-radius: var(--border-rd-md);
+      box-shadow: 1px 8px 10px 1px #b4b2b4;
+    }
+
+    @include large {
+      min-width: 40vw;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+      align-items: center;
+      border-radius: var(--border-rd-md);
+      box-shadow: 1px 8px 10px 1px #b4b2b4;
+    }
+
+    .form_container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 2rem;
+
+      .register_header {
+        margin-bottom: 1rem;
+        font-size: var(--fsize-md);
+        color: var(--primary-txt-clr);
+      }
+
+      .form_wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .email-input {
+          position: relative;
+        }
+
+        input {
+          width: 400px;
+          min-height: 45px;
+          border: 3px solid var(--tertiary-txt-clr);
+          border-radius: var(--border-rd-sm);
+          background-color: transparent;
+          padding: 5px 10px;
+          color: var(--primary-txt-clr);
+          font-size: 16px;
+
+          @include xsmall {
+            width: 260px;
+          }
+
+          @include small {
+            width: 260px;
+          }
+
+          &::placeholder {
+            color: var(--primary-txt-clr);
+            font-weight: var(--fw-boldmd);
+          }
+
+          &.input-error {
+            border: 3px solid red;
+          }
+        }
+
+        .emailError,
+        .passwordError {
+          position: absolute;
+          top: 50px;
+
+          .error {
+            text-indent: 10px;
+            color: red;
+            font-size: var(--fsize-sm);
+          }
+        }
+
+        .password-input {
+          position: relative;
+
+          .toggle-password {
+            position: absolute;
+            top: 22%;
+            right: 20px;
+            cursor: pointer;
+            font-size: var(--fsize-sm);
+
+            .password_icons {
+              color: var(--primary-txt-clr);
+            }
+          }
+        }
+
+        .btn {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+
+          .loginButton {
+            width: 400px;
+            min-height: 45px;
+            background-color: var(--tertiary-bg-clr);
+            border-radius: var(--border-rd-sm);
+            font-size: var(--fsize-reg);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            color: var(--secondary-txt-clr);
+            transition: all 0.3s;
+
+            @include xsmall {
+              width: 260px;
+            }
+
+            @include small {
+              width: 260px;
+            }
+
+            &:disabled {
+              filter: contrast(0.5);
+            }
+
+            &:hover {
+              opacity: 0.95;
+            }
+          }
+
+          .apiError {
+            position: absolute;
+            bottom: 28px;
+            left: 120px;
+
+            @include xsmall {
+              left: 65px;
+            }
+
+            @include small {
+              left: 65px;
+            }
+
+            .error {
+              color: red;
+              font-size: var(--fsize-sm);
+
+              @include xsmall {
+                font-size: 0.8rem;
+              }
+
+              @include small {
+                font-size: 0.8rem;
+              }
+            }
+          }
+
+          .auth_confirm {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px;
+
+            @include xsmall {
+              justify-content: flex-start;
+            }
+
+            @include small {
+              justify-content: flex-start;
+            }
+
+            .confirm {
+              font-size: var(--fsize-reg);
+              color: var(--primary-txt-clr);
+            }
+
+            .confirm_btn {
+              font-size: var(--fsize-reg);
+              font-weight: var(--fw-bold);
+              cursor: pointer;
+              background-color: transparent;
+              color: var(--primary-txt-clr);
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

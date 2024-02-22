@@ -1,0 +1,51 @@
+@import "../../../App.scss";
+
+.footer {
+  min-height: 3.3rem;
+  width: 100%;
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--tertiary-bg-clr);
+
+  @include xsmStyles {
+    flex-direction: column-reverse;
+  }
+
+  .copyrights {
+    p {
+      font-size: var(--fsize-reg);
+      margin-left: 2rem;
+      padding-left: 2rem;
+      color: var(--secondary-txt-clr);
+
+      @include xsmStyles {
+        margin: 0.7rem 0;
+      }
+    }
+  }
+
+  .socials {
+    margin-right: 2rem;
+    padding-right: 2rem;
+
+    @include xsmStyles {
+      margin: 0.7rem 0 0 0;
+    }
+
+    span {
+      margin-right: 1.5rem;
+
+      .fa-brands {
+        font-size: var(--fsize-md);
+        color: var(--secondary-txt-clr);
+        cursor: pointer;
+
+        &:hover {
+          color: var(--tertiary-txt-clr);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,116 @@
+@import "../../App.scss";
+
+.whishlist {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 3.3rem auto 1rem;
+
+  .whishlist_section {
+    width: 90vw;
+    margin: 1rem auto;
+
+    .wishlist_header {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      @include small {
+        h1 {
+          display: flex;
+          flex-direction: column;
+
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+
+      @include xsmall {
+        h1 {
+          display: flex;
+          flex-direction: column;
+
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+
+      .clear_wishlist {
+        width: 125px;
+        height: 35px;
+        border-radius: var(--border-rd-sm);
+        font-weight: var(--fw-reg);
+        letter-spacing: 1.15px;
+        background-color: var(--tertiary-bg-clr);
+        color: var(--secondary-txt-clr);
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.85;
+        }
+      }
+    }
+
+    .empty_wishlist {
+      font-size: var(--fsize-semimd);
+      margin-top: 2rem;
+      color: var(--tertiary-txt-clr);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .redirectLink {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 1rem;
+
+        &:hover {
+          text-decoration: underline;
+          color: var(--primary-txt-clr);
+        }
+      }
+    }
+
+    .category_wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+
+      @include xsmStyles {
+        justify-content: center;
+      }
+
+      .fetchError,
+      .loading {
+        text-align: center;
+        color: var(--primary-txt-clr);
+        font-size: var(--fsize-reg);
+      }
+
+      .cartBtn {
+        margin-top: 1.2rem;
+        width: 100%;
+        height: 40px;
+        border-radius: var(--border-rd-sm);
+        font-weight: var(--fw-reg);
+        letter-spacing: 1.15px;
+        background-color: var(--tertiary-bg-clr);
+        color: var(--secondary-txt-clr);
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+}
