@@ -37,7 +37,7 @@ const registerUser = async (req, res) => {
         user: createdUser,
         mssg: "User registered successfully",
       })
-    }, 1500)
+    }, 1000)
   } catch (error) {
     return res.status(500).json({ message: "Internal server error!" })
   }
@@ -83,7 +83,7 @@ const loginUser = async (req, res) => {
         user: loggedInUser,
         mssg: "User Logged In Successfully",
       })
-    }, 1500)
+    }, 1000)
   } catch (error) {
     return res.status(500).json({ message: "Internal server error!" })
   }

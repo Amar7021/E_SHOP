@@ -1,19 +1,26 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./pages/home/Home"
 import Login from "./pages/login/Login"
 import Register from "./pages/register/Register"
 import { Toaster } from "react-hot-toast"
 import ProtectedRoutes from "./components/ProtectedRoutes"
 import NoMatch from "./pages/noMatch/NoMatch"
-import ProductDetail from "./pages/productDetail/ProductDetail"
-import Whishlist from "./pages/whishlist/Whishlist"
-import Category from "./pages/category/Category"
-import Cart from "./pages/cart/Cart"
-import Smartphones from "./pages/smartphones/Smartphones"
-import AllCategories from "./pages/allCategories/AllCategories"
-import Jewelery from "./pages/jewelery/Jewelery"
-import Clothing from "./pages/clothing/Clothing"
+import { Suspense, lazy } from "react"
+import LoadingPage from "./components/loading/LoadingPage"
 import "./App.scss"
+
+const LazyHome = lazy(() => import("./pages/home/Home"))
+const LazyProductDetail = lazy(() =>
+  import("./pages/productDetail/ProductDetail")
+)
+const LazyCategory = lazy(() => import("./pages/category/Category"))
+const LazyAllCategories = lazy(() =>
+  import("./pages/allCategories/AllCategories")
+)
+const LazyCart = lazy(() => import("./pages/cart/Cart"))
+const LazyWhishlist = lazy(() => import("./pages/whishlist/Whishlist"))
+const LazySmartphones = lazy(() => import("./pages/smartphones/Smartphones"))
+const LazyJewelery = lazy(() => import("./pages/jewelery/Jewelery"))
+const LazyClothing = lazy(() => import("./pages/clothing/Clothing"))
 
 function App() {
   return (
@@ -23,50 +30,87 @@ function App() {
         reverseOrder={false}
       />
       <Routes>
-        {/* *********** PRIVATE ROUTE **********************  */}
+        {/* *********** PRIVATE ROUTE START **********************  */}
         <Route element={<ProtectedRoutes />}>
           <Route
             path="/"
             exact
-            element={<Home />}
+            element={
+              <Suspense fallback={<LoadingPage />}>
+                <LazyHome />
+              </Suspense>
+            }
           />
           <Route
             path="/product-detail/:id"
-            element={<ProductDetail />}
+            element={
+              <Suspense fallback={<LoadingPage />}>
+                <LazyProductDetail />
+              </Suspense>
+            }
           />
+          {/* *********** NESTED ROUTE START **********************  */}
           <Route
             exact
             path="/category"
-            element={<Category />}
+            element={
+              <Suspense fallback={<LoadingPage />}>
+                <LazyCategory />
+              </Suspense>
+            }
           >
             <Route
               path="all"
-              element={<AllCategories />}
+              element={
+                <Suspense fallback={<LoadingPage />}>
+                  <LazyAllCategories />
+                </Suspense>
+              }
             />
             <Route
               path="smartphones"
-              element={<Smartphones />}
+              element={
+                <Suspense fallback={<LoadingPage />}>
+                  <LazySmartphones />
+                </Suspense>
+              }
             />
             <Route
               path="clothing"
-              element={<Clothing />}
+              element={
+                <Suspense fallback={<LoadingPage />}>
+                  <LazyClothing />
+                </Suspense>
+              }
             />
             <Route
               path="jewelery"
-              element={<Jewelery />}
+              element={
+                <Suspense fallback={<LoadingPage />}>
+                  <LazyJewelery />
+                </Suspense>
+              }
             />
           </Route>
+          {/* *********** NESTED ROUTE END **********************  */}
           <Route
             path="/whishlist"
-            element={<Whishlist />}
+            element={
+              <Suspense fallback={<LoadingPage />}>
+                <LazyWhishlist />
+              </Suspense>
+            }
           />
           <Route
             path="/cart"
-            element={<Cart />}
+            element={
+              <Suspense fallback={<LoadingPage />}>
+                <LazyCart />
+              </Suspense>
+            }
           />
         </Route>
-        {/* *********** PRIVATE ROUTE **********************  */}
-
+        {/* *********** PRIVATE ROUTE END **********************  */}
         {/* *********** PUBLIC ROUTE **********************  */}
         <Route
           path="/login"
