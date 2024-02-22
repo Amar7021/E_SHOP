@@ -37,17 +37,17 @@
 
       .clear_filter_btn {
         font-size: 12px;
-        padding: 7px;
+        padding: 6px;
         color: var(--secondary-txt-clr);
         background-color: var(--tertiary-bg-clr);
         border-radius: var(--border-rd-sm);
         cursor: pointer;
         transition: all 0.3s ease;
+        border: 1px solid var(--tertiary-bg-clr);
 
         &:hover {
           color: var(--primary-txt-clr);
           background-color: var(--primary-bg-clr);
-          border: 1px solid var(--tertiary-bg-clr);
         }
       }
     }
