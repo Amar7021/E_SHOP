@@ -8,6 +8,7 @@ import { Suspense, lazy } from "react"
 import LoadingPage from "./components/loading/LoadingPage"
 import "./App.scss"
 
+//------------ LAZY LOADING OF COMPONENTS ----------
 const LazyHome = lazy(() => import("./pages/home/Home"))
 const LazyProductDetail = lazy(() =>
   import("./pages/productDetail/ProductDetail")
@@ -111,7 +112,7 @@ function App() {
           />
         </Route>
         {/* *********** PRIVATE ROUTE END **********************  */}
-        {/* *********** PUBLIC ROUTE **********************  */}
+        {/* *********** PUBLIC ROUTE START **********************  */}
         <Route
           path="/login"
           element={<Login />}
@@ -124,7 +125,7 @@ function App() {
           path="*"
           element={<NoMatch />}
         />
-        {/* *********** PUBLIC ROUTE **********************  */}
+        {/* *********** PUBLIC ROUTE END **********************  */}
       </Routes>
     </BrowserRouter>
   )

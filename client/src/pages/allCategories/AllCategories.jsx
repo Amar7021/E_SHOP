@@ -13,6 +13,7 @@ const AllCategories = () => {
   const [isError, setIsError] = useState(null)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
+  const [rating, setRating] = useState(0)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,18 +40,54 @@ const AllCategories = () => {
       setPage(selectedPage)
   }
 
+  const filteredData = products.filter((item) => {
+    if (rating > 0) {
+      return item.rating > rating
+    }
+    return true
+  })
+
   return (
     <section className="category_section">
-      <h1 className="product_heading">Products</h1>
-      <div className="category_wrapper">
+      <div className="category_top">
+        <h1 className="product_heading">Products</h1>
+        <div className="filter">
+          <label
+            htmlFor="rating"
+            className="filter_label"
+          >
+            Filter:
+          </label>
+          <select
+            name="rating"
+            value={rating}
+            onChange={(e) => setRating(parseFloat(e.target.value))}
+            className="rating"
+          >
+            <option value="">Rating</option>
+            <option value={4.5}>Above 4.5</option>
+            <option value={4.3}>Below 4.5</option>
+          </select>
+          <button
+            type="button"
+            onClick={() => setRating(0)}
+            className="clear_filter_btn"
+          >
+            Clear filters
+          </button>
+        </div>
+      </div>
+      <div className="category_bottom">
         {loading && <p className="loading">Loading...</p>}
         {isError && <p className="fetchError">Something went wrong!</p>}
-        {products?.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
+        {!loading &&
+          !loading &&
+          filteredData?.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
       </div>
       {products.length > 0 && (
         <div className="pagination">

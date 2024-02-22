@@ -8,11 +8,52 @@
     margin: 12rem auto 1rem;
   }
 
-  .product_heading {
+  .category_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     margin-bottom: 1rem;
+
+    @include small {
+      flex-direction: column;
+    }
+
+    @include xsmall {
+      flex-direction: column;
+    }
+
+    .filter {
+      .filter_label {
+        margin-right: 5px;
+      }
+
+      .rating {
+        padding: 5px;
+        cursor: pointer;
+        margin-right: 20px;
+        border-radius: var(--border-rd-sm);
+      }
+
+      .clear_filter_btn {
+        font-size: 12px;
+        padding: 7px;
+        color: var(--secondary-txt-clr);
+        background-color: var(--tertiary-bg-clr);
+        border-radius: var(--border-rd-sm);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: var(--primary-txt-clr);
+          background-color: var(--primary-bg-clr);
+          border: 1px solid var(--tertiary-bg-clr);
+        }
+      }
+    }
   }
 
-  .category_wrapper {
+  .category_bottom {
     width: 100%;
     display: flex;
     align-items: center;

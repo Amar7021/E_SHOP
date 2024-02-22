@@ -33,12 +33,14 @@ const Smartphones = () => {
       <div className="category_wrapper">
         {loading && <p className="loading">Loading...</p>}
         {isError && <p className="fetchError">Something went wrong!</p>}
-        {products?.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
+        {!loading &&
+          !isError &&
+          products?.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
       </div>
     </section>
   )

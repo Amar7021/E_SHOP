@@ -8,29 +8,6 @@ const Clothing = () => {
   const [loading, setLoading] = useState(false)
   const [isError, setIsError] = useState(null)
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       setIsError(false)
-  //       setLoading(true)
-  //       const response = await axios.get("https://fakestoreapi.com/products")
-  //       const mensClothing = response.data.filter(
-  //         (item) => item.category === "men's clothing"
-  //       )
-  //       const womensClothing = response.data.filter(
-  //         (item) => item.category === "women's clothing"
-  //       )
-  //       const filteredData = [...mensClothing, ...womensClothing]
-  //       setProducts(filteredData)
-  //       setLoading(false)
-  //     } catch (error) {
-  //       console.log(error)
-  //       setIsError(true)
-  //     }
-  //   }
-  //   fetchProducts()
-  // }, [])
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -56,12 +33,14 @@ const Clothing = () => {
       <div className="category_wrapper">
         {loading && <p className="loading">Loading...</p>}
         {isError && <p className="fetchError">Something went wrong!</p>}
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
+        {!loading &&
+          !isError &&
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
       </div>
     </section>
   )
