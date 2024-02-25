@@ -1,0 +1,77 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal_wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 270px;
+  background-color: var(--tertiary-bg-clr);
+  box-shadow: 1px 8px 10px 1px #b4b2b4;
+  border-radius: var(--border-rd-md);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+
+  .modal_header {
+    font-size: var(--fsize-semimd);
+    text-transform: capitalize;
+    color: var(--secondary-txt-clr);
+  }
+
+  .modal_confirm {
+    font-size: var(--fsize-reg);
+    color: var(--secondary-txt-clr);
+  }
+
+  .btns {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: end;
+    margin-top: 10px;
+
+    .cancel_btn {
+      width: 80px;
+      font-weight: var(--fw-bold);
+      font-size: var(--fsize-sm);
+      color: var(--secondary-txt-clr);
+      background-color: red;
+      padding: 10px;
+      border-radius: var(--border-rd-sm);
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+
+    .remove_btn {
+      width: 80px;
+      font-size: var(--fsize-sm);
+      font-weight: var(--fw-bold);
+      color: var(--primary-txt-clr);
+      background-color: var(--primary-bg-clr);
+      padding: 10px;
+      border-radius: var(--border-rd-sm);
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}

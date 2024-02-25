@@ -5,6 +5,7 @@ import {
   ArrowBackIosNewOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material"
+import ProductCardSkeleton from "../../components/productCardSkeleton/ProductCardSkeleton"
 import "./allCategories.scss"
 
 const AllCategories = () => {
@@ -35,17 +36,23 @@ const AllCategories = () => {
     fetchProducts()
   }, [page])
 
-  const selectPageHandler = (selectedPage) => {
-    if (selectedPage >= 1 && totalPages && selectedPage !== page)
-      setPage(selectedPage)
-  }
-
   const filteredData = products.filter((item) => {
     if (rating > 0) {
       return item.rating > rating
     }
     return true
   })
+
+  const selectPageHandler = (selectedPage) => {
+    if (selectedPage >= 1 && totalPages && selectedPage !== page)
+      setPage(selectedPage)
+    window.scrollTo(0, 0)
+  }
+
+  const clearFilters = () => {
+    setRating(0)
+    window.scrollTo(0, 0)
+  }
 
   return (
     <section className="category_section">
@@ -70,7 +77,7 @@ const AllCategories = () => {
           </select>
           <button
             type="button"
-            onClick={() => setRating(0)}
+            onClick={clearFilters}
             className="clear_filter_btn"
           >
             Clear filters
@@ -78,7 +85,7 @@ const AllCategories = () => {
         </div>
       </div>
       <div className="category_bottom">
-        {loading && <p className="loading">Loading...</p>}
+        {loading && <ProductCardSkeleton cards={5} />}
         {isError && <p className="fetchError">Something went wrong!</p>}
         {!loading &&
           !loading &&

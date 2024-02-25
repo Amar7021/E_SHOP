@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import ProductCard from "../../components/productCard/ProductCard"
 import "./smartphones.scss"
+import ProductCardSkeleton from "../../components/productCardSkeleton/ProductCardSkeleton"
 
 const Smartphones = () => {
   const [products, setProducts] = useState([])
@@ -31,7 +32,7 @@ const Smartphones = () => {
     <section className="electronics_section">
       <h1 className="product_heading">Products</h1>
       <div className="category_wrapper">
-        {loading && <p className="loading">Loading...</p>}
+        {loading && <ProductCardSkeleton cards={5} />}
         {isError && <p className="fetchError">Something went wrong!</p>}
         {!loading &&
           !isError &&

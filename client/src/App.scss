@@ -109,6 +109,7 @@ li {
   }
 }
 
+// for small devices
 @mixin small {
   @media screen and (min-width: 321px) and (max-width: 576px) {
     @content;

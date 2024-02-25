@@ -9,7 +9,7 @@ import "./productNavbar.scss"
 
 const ProductNavbar = () => {
   return (
-    <div className="productNav">
+    <nav className="productNav">
       <ul className="productNav_wrapper">
         <li className="category_list">
           <NavLink
@@ -48,7 +48,7 @@ const ProductNavbar = () => {
           </NavLink>
         </li>
       </ul>
-    </div>
+    </nav>
   )
 }
 

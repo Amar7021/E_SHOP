@@ -21,7 +21,8 @@
       color: var(--secondary-txt-clr);
 
       @include xsmStyles {
-        margin: 0.7rem 0;
+        margin: 1rem;
+        padding-left: 0;
       }
     }
   }
@@ -31,7 +32,8 @@
     padding-right: 2rem;
 
     @include xsmStyles {
-      margin: 0.7rem 0 0 0;
+      margin: 1rem 0 0 0;
+      padding-right: 0;
     }
 
     span {

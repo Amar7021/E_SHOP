@@ -1,21 +1,27 @@
 import { useDispatch, useSelector } from "react-redux"
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { KeyboardBackspaceOutlined } from "@mui/icons-material"
 import {
   addToCart,
-  clearCart,
   decreaseCart,
   getTotals,
   removeFromCart,
 } from "../../redux/features/cartSlice"
+import { useEffect, useState } from "react"
+import { LazyLoadImage } from "react-lazy-load-image-component"
+import "react-lazy-load-image-component/src/effects/blur.css"
+import placeHolderImage from "../../assets/images/logo.png"
+import Modal from "../../components/modal/Modal"
+import { createPortal } from "react-dom"
 import "./cart.scss"
-import { useEffect } from "react"
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart)
   const dispatch = useDispatch()
+  const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getTotals())
@@ -29,12 +35,16 @@ const Cart = () => {
     dispatch(removeFromCart(cartItem))
   }
 
-  const handleClearCart = () => {
-    dispatch(clearCart())
-  }
-
   const handleDecreaseCartItem = (cartItem) => {
     dispatch(decreaseCart(cartItem))
+  }
+
+  const handleModal = () => {
+    setIsOpen(true)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
   }
 
   return (
@@ -42,6 +52,12 @@ const Cart = () => {
       <Navbar />
       <main className="cart_container">
         <section className="cart_wrapper">
+          <span
+            onClick={() => navigate("/category/all")}
+            className="goBackLink"
+          >
+            <KeyboardBackspaceOutlined />
+          </span>
           <h2 className="shopping_cart_heading">Your Cart</h2>
           {cart.cartItems.length === 0 ? (
             <div className="empty_cart">
@@ -75,9 +91,11 @@ const Cart = () => {
                         to={`/product-detail/${cartItem.id}`}
                         className="prd_detail_link"
                       >
-                        <img
+                        <LazyLoadImage
                           src={cartItem.thumbnail}
                           alt={cartItem.title}
+                          effect="blur"
+                          placeholderSrc={placeHolderImage}
                         />
                       </Link>
                       <div className="cart_product_info">
@@ -120,10 +138,12 @@ const Cart = () => {
                 <button
                   className="clear_cart"
                   type="button"
-                  onClick={() => handleClearCart()}
+                  onClick={handleModal}
                 >
                   Clear Cart
                 </button>
+                {isOpen &&
+                  createPortal(<Modal onClose={handleClose} />, document.body)}
                 <div className="cart_checkout">
                   <div className="subtotal">
                     <span>Subtotal</span>

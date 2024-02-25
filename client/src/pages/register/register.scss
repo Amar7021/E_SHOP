@@ -92,6 +92,14 @@
             text-indent: 10px;
             color: red;
             font-size: var(--fsize-sm);
+
+            @include small {
+              font-size: 12px;
+            }
+
+            @include xsmall {
+              font-size: 12px;
+            }
           }
         }
 

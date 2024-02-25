@@ -2,7 +2,7 @@ import "./footer.scss"
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="copyrights">
         <p>
           Copyright &copy; {new Date().getFullYear()} E-Cart. All rights
@@ -23,7 +23,7 @@ const Footer = () => {
           <i className="fa-brands fa-linkedin"></i>
         </span>
       </div>
-    </div>
+    </footer>
   )
 }
 

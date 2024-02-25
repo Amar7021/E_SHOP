@@ -2,11 +2,18 @@ import { useNavigate, useParams } from "react-router-dom"
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
 import { useEffect, useState } from "react"
-import { LocalShippingOutlined, CachedOutlined } from "@mui/icons-material"
+import {
+  LocalShippingOutlined,
+  CachedOutlined,
+  KeyboardBackspaceOutlined,
+} from "@mui/icons-material"
 import axios from "axios"
 import Star from "../../components/star/Star"
 import { addToCart } from "../../redux/features/cartSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { LazyLoadImage } from "react-lazy-load-image-component"
+import "react-lazy-load-image-component/src/effects/blur.css"
+import placeHolderImage from "../../assets/images/logo.png"
 import "./productDetail.scss"
 
 const ProductDetail = () => {
@@ -41,12 +48,20 @@ const ProductDetail = () => {
     <>
       <Navbar />
       <main className="productDetail">
-        <section className="product_wrapper">
+        <section className="product_detail_section">
+          <span
+            onClick={() => navigate("/category/all")}
+            className="goBackLink"
+          >
+            <KeyboardBackspaceOutlined />
+          </span>
           <div className="left">
-            <img
+            <LazyLoadImage
               src={product?.thumbnail}
               alt={product?.title}
               className="product_img"
+              effect="blur"
+              placeholderSrc={placeHolderImage}
             />
           </div>
           <div className="right">
@@ -73,7 +88,7 @@ const ProductDetail = () => {
             <div className="addBtns">
               {cart.cartItems.some((item) => item.id === product?.id) ? (
                 <button
-                  className="addToCartBtn"
+                  className="CartBtn"
                   onClick={handleGoToCart}
                   type="button"
                 >
@@ -81,7 +96,7 @@ const ProductDetail = () => {
                 </button>
               ) : (
                 <button
-                  className="addToCartBtn"
+                  className="CartBtn"
                   type="button"
                   onClick={() => handleAddToCart(product)}
                 >

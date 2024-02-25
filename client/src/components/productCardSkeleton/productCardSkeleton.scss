@@ -1,0 +1,21 @@
+.product_card_skeleton {
+  width: 250px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.25rem;
+  border: 0.5px solid black;
+  border-radius: var(--border-rd-sm);
+  padding: 10px;
+
+  .img_card {
+    width: 200px;
+    height: 180px;
+  }
+
+  .titles {
+    width: 100%;
+    padding: 10px 10px 0;
+  }
+}

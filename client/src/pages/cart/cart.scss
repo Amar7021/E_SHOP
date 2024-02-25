@@ -10,6 +10,10 @@
     width: 90vw;
     margin: 1rem auto;
 
+    .goBackLink {
+      cursor: pointer;
+    }
+
     .shopping_cart_heading {
       font-weight: var(--fw-reg);
       font-size: var(--fsize-lg);
@@ -154,6 +158,10 @@
             padding: 0.7rem 1.5rem;
             cursor: pointer;
             font-size: var(--fsize-semimd);
+
+            &:hover {
+              color: var(--accent-1);
+            }
           }
 
           .count {

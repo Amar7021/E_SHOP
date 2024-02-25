@@ -16,13 +16,13 @@ export const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       )
       if (existsItemIndex >= 0) {
-        toast.error("Item already exists in Wishlist")
+        toast.error("Product already exists in Wishlist")
       } else {
         const buildFavItem = { ...action.payload }
 
         state.favItems?.push(buildFavItem)
 
-        toast.success("Item added to Wishlist")
+        toast.success("Product added to Wishlist")
 
         localStorage.setItem("favItems", JSON.stringify(state.favItems))
       }
@@ -34,7 +34,7 @@ export const cartSlice = createSlice({
 
       state.favItems = filteredItems
 
-      toast.success("Item removed from Wishlist")
+      toast.success("Product removed from Wishlist")
 
       localStorage.setItem("favItems", JSON.stringify(state.favItems))
     },

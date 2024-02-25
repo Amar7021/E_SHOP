@@ -15,7 +15,7 @@ const LoadingPage = () => {
         style={{
           width: "100px",
           height: "100px",
-          backgroundColor: "#0e0e0e",
+          boxShadow: "1px 8px 10px 1px #b4b2b4",
           borderRadius: "10px",
           display: "flex",
           alignItems: "center",

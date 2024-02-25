@@ -2,21 +2,20 @@ import Navbar from "../../components/common/navbar/Navbar"
 import Footer from "../../components/common/footer/Footer"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { clearWishlist } from "../../redux/features/wishListSlice"
 import { KeyboardBackspaceOutlined } from "@mui/icons-material"
 import { addToCart } from "../../redux/features/cartSlice"
 import ProductCard from "../../components/productCard/ProductCard"
+import { createPortal } from "react-dom"
+import Modal from "../../components/modal/Modal"
+import { useState } from "react"
 import "./whishlist.scss"
 
 const Whishlist = () => {
   const { favItems } = useSelector((state) => state.wishlist)
   const cart = useSelector((state) => state.cart)
+  const [isOpen, setIsOpen] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  const handleClearWishlist = () => {
-    dispatch(clearWishlist())
-  }
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
@@ -26,23 +25,47 @@ const Whishlist = () => {
     navigate("/cart")
   }
 
+  const handleModal = () => {
+    setIsOpen(true)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
+
   return (
     <>
       <Navbar />
       <main className="whishlist">
         <section className="whishlist_section">
+          <span
+            onClick={() => navigate("/category/all")}
+            className="goBackLink"
+          >
+            <KeyboardBackspaceOutlined />
+          </span>
           <div className="wishlist_header">
             <h1>
               Wishlist: <span>{favItems.length} items</span>
             </h1>
             {favItems.length > 0 && (
-              <button
-                type="button"
-                onClick={handleClearWishlist}
-                className="clear_wishlist"
-              >
-                Clear Wishlist
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="clear_wishlist"
+                  onClick={handleModal}
+                >
+                  Clear Wishlist
+                </button>
+                {isOpen &&
+                  createPortal(
+                    <Modal
+                      onClose={handleClose}
+                      cart="wishlist"
+                    />,
+                    document.body
+                  )}
+              </>
             )}
           </div>
           {favItems.length === 0 ? (

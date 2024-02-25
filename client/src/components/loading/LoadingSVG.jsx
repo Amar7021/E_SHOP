@@ -11,7 +11,7 @@ const LoadingSVG = ({ width, height }) => {
       <g
         strokeWidth="200"
         strokeLinecap="round"
-        stroke="hsl(0, 0%, 50%)"
+        stroke="hsl(0, 0%, 30%)"
         fill="none"
       >
         <path d="M1200 600V100" />

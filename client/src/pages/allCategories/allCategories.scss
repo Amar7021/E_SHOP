@@ -5,7 +5,7 @@
   margin: 6.3rem auto 1rem;
 
   @include xsmStyles {
-    margin: 12rem auto 1rem;
+    margin: 15rem auto 1rem;
   }
 
   .category_top {
@@ -29,15 +29,17 @@
       }
 
       .rating {
-        padding: 5px;
+        width: 90px;
+        height: 30px;
         cursor: pointer;
-        margin-right: 20px;
+        margin-right: 15px;
         border-radius: var(--border-rd-sm);
       }
 
       .clear_filter_btn {
+        width: 80px;
+        height: 30px;
         font-size: 12px;
-        padding: 6px;
         color: var(--secondary-txt-clr);
         background-color: var(--tertiary-bg-clr);
         border-radius: var(--border-rd-sm);
@@ -81,7 +83,8 @@
 
     span {
       padding: 15px 20px;
-      border: 1px solid var(--tertiary-txt-clr);
+      margin: 5px;
+      border: 1px solid var(--secondary-bg-clr);
       cursor: pointer;
     }
 
