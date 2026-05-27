@@ -1,9 +1,10 @@
-import { useSelector } from "react-redux"
+import { useUserStore } from "../store/userStore"
 import { Navigate, Outlet } from "react-router-dom"
 import LoadingPage from "./loading/LoadingPage"
 
 const ProtectedRoutes = () => {
-  const { currentUser, loading } = useSelector((state) => state.user)
+  const currentUser = useUserStore((state) => state.currentUser)
+  const loading = useUserStore((state) => state.loading)
 
   if (loading) {
     return <LoadingPage />

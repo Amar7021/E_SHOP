@@ -1,14 +1,15 @@
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
-import { useFormik } from "formik"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { signUpSchema } from "../../AuthSchema"
 import { useState } from "react"
 import axios from "../../services/helper"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import LoadingSVG from "../../components/loading/LoadingSVG"
-import { Visibility, VisibilityOff } from "@mui/icons-material"
 import "./register.scss"
+import { Eye, EyeOff } from "lucide-react"
 
 const Register = () => {
   const [isPassword, setIsPassword] = useState(false)
@@ -16,10 +17,25 @@ const Register = () => {
   const [isError, setIsError] = useState(null)
   const navigate = useNavigate()
 
-  const onSubmit = async (values) => {
-    const { email, username, password } = values
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: zodResolver(signUpSchema),
+    mode: "onChange",
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+  })
+
+  const onSubmit = async (data) => {
+    const { email, username, password } = data
     try {
       setIsLoading(true)
+      setIsError(null)
       await axios.post("/users/register", {
         email,
         username,
@@ -29,24 +45,12 @@ const Register = () => {
       toast.success("Registration Successful!")
       setIsLoading(false)
     } catch (error) {
-      setIsError(error.response?.data?.message)
+      setIsError(error.response?.data?.message || error.message)
       setIsLoading(false)
       console.log(error)
     }
   }
 
-  const { errors, touched, handleSubmit, getFieldProps, isValid } = useFormik({
-    initialValues: {
-      username: "",
-      fullName: "",
-      email: "",
-      password: "",
-    },
-    validationSchema: signUpSchema,
-    onSubmit,
-  })
-
-  // const toggle password
   const togglePassword = () => {
     setIsPassword((prev) => !prev)
   }
@@ -60,21 +64,19 @@ const Register = () => {
             <h2 className="register_header">Register</h2>
             <form
               className="form_wrapper"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
             >
               <div className="username-input">
                 <input
-                  type="username"
+                  type="text"
                   placeholder="Username"
                   maxLength={17}
-                  {...getFieldProps("username")}
-                  className={
-                    errors.username && touched.username ? "input-error" : ""
-                  }
+                  {...register("username")}
+                  className={errors.username ? "input-error" : ""}
                 />
                 <div className="usernameError">
-                  {errors.username && touched.username ? (
-                    <p className="error">{errors.username}</p>
+                  {errors.username ? (
+                    <p className="error">{errors.username.message}</p>
                   ) : null}
                 </div>
               </div>
@@ -82,12 +84,12 @@ const Register = () => {
                 <input
                   type="email"
                   placeholder="Email"
-                  {...getFieldProps("email")}
-                  className={errors.email && touched.email ? "input-error" : ""}
+                  {...register("email")}
+                  className={errors.email ? "input-error" : ""}
                 />
                 <div className="emailError">
-                  {errors.email && touched.email ? (
-                    <p className="error">{errors.email}</p>
+                  {errors.email ? (
+                    <p className="error">{errors.email.message}</p>
                   ) : null}
                 </div>
               </div>
@@ -96,24 +98,22 @@ const Register = () => {
                   type={isPassword ? "text" : "password"}
                   placeholder="Password"
                   maxLength={21}
-                  {...getFieldProps("password")}
-                  className={
-                    errors.password && touched.password ? "input-error" : ""
-                  }
+                  {...register("password")}
+                  className={errors.password ? "input-error" : ""}
                 />
                 <span
                   className="toggle-password"
                   onClick={togglePassword}
                 >
                   {isPassword ? (
-                    <VisibilityOff className="password_icons" />
+                    <EyeOff className="password_icons" />
                   ) : (
-                    <Visibility className="password_icons" />
+                    <Eye className="password_icons" />
                   )}
                 </span>
                 <div className="passwordError">
-                  {errors.password && touched.password ? (
-                    <p className="error">{errors.password}</p>
+                  {errors.password ? (
+                    <p className="error">{errors.password.message}</p>
                   ) : null}
                 </div>
               </div>

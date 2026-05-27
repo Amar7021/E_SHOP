@@ -1,52 +1,55 @@
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
-import { useFormik } from "formik"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { loginSchema } from "../../AuthSchema"
 import { useState } from "react"
 import axios from "../../services/helper"
 import toast from "react-hot-toast"
-import { useDispatch, useSelector } from "react-redux"
+import { useUserStore } from "../../store/userStore"
 import { useNavigate } from "react-router-dom"
-import {
-  authStarted,
-  authFailed,
-  authSuccessful,
-} from "../../redux/features/userSlice"
 import LoadingSVG from "../../components/loading/LoadingSVG"
-import { Visibility, VisibilityOff } from "@mui/icons-material"
+import { Eye, EyeOff } from "lucide-react"
 import "./login.scss"
 
 const Login = () => {
-  const { loading } = useSelector((state) => state.user)
+  const loading = useUserStore((state) => state.loading)
+  const authStarted = useUserStore((state) => state.authStarted)
+  const authSuccessful = useUserStore((state) => state.authSuccessful)
+  const authFailed = useUserStore((state) => state.authFailed)
+
   const [isPassword, setIsPassword] = useState(false)
   const [isError, setIsError] = useState(null)
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const onSubmit = async (values) => {
-    const { email, password } = values
-    try {
-      dispatch(authStarted())
-      const response = await axios.post("/users/login", { email, password })
-      dispatch(authSuccessful(response.data))
-      navigate("/")
-      toast.success("Login Successful!")
-    } catch (error) {
-      setIsError(error.response?.data?.message)
-      dispatch(authFailed(error.message))
-    }
-  }
-
-  const { errors, touched, handleSubmit, getFieldProps, isValid } = useFormik({
-    initialValues: {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+    mode: "onChange",
+    defaultValues: {
       email: "",
       password: "",
     },
-    validationSchema: loginSchema,
-    onSubmit,
   })
 
-  // const toggle password
+  const onSubmit = async (data) => {
+    const { email, password } = data
+    try {
+      authStarted()
+      const response = await axios.post("/users/login", { email, password })
+      authSuccessful(response.data)
+      navigate("/")
+      toast.success("Login Successful!")
+    } catch (error) {
+      const errMsg = error.response?.data?.message || error.message
+      setIsError(errMsg)
+      authFailed(errMsg)
+    }
+  }
+
   const togglePassword = () => {
     setIsPassword((prev) => !prev)
   }
@@ -60,18 +63,18 @@ const Login = () => {
             <h2 className="register_header">Login</h2>
             <form
               className="form_wrapper"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
             >
               <div className="email-input">
                 <input
                   type="email"
                   placeholder="Email"
-                  {...getFieldProps("email")}
-                  className={errors.email && touched.email ? "input-error" : ""}
+                  {...register("email")}
+                  className={errors.email ? "input-error" : ""}
                 />
                 <div className="emailError">
-                  {errors.email && touched.email ? (
-                    <p className="error">{errors.email}</p>
+                  {errors.email ? (
+                    <p className="error">{errors.email.message}</p>
                   ) : null}
                 </div>
               </div>
@@ -80,24 +83,22 @@ const Login = () => {
                   type={isPassword ? "text" : "password"}
                   placeholder="Password"
                   maxLength={21}
-                  {...getFieldProps("password")}
-                  className={
-                    errors.password && touched.password ? "input-error" : ""
-                  }
+                  {...register("password")}
+                  className={errors.password ? "input-error" : ""}
                 />
                 <span
                   className="toggle-password"
                   onClick={togglePassword}
                 >
                   {isPassword ? (
-                    <VisibilityOff className="password_icons" />
+                    <EyeOff className="password_icons" />
                   ) : (
-                    <Visibility className="password_icons" />
+                    <Eye className="password_icons" />
                   )}
                 </span>
                 <div className="passwordError">
-                  {errors.password && touched.password ? (
-                    <p className="error">{errors.password}</p>
+                  {errors.password ? (
+                    <p className="error">{errors.password.message}</p>
                   ) : null}
                 </div>
               </div>

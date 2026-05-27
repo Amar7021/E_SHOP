@@ -6,24 +6,13 @@ import {
   FavoriteOutlined,
   FavoriteBorderOutlined,
 } from "@mui/icons-material"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  addToWishList,
-  removeFromWishList,
-} from "../../redux/features/wishListSlice"
+import { useWishListStore } from "../../store/wishListStore"
 import "./star.scss"
 
 const Star = ({ stars, product }) => {
-  const { favItems } = useSelector((state) => state.wishlist)
-  const dispatch = useDispatch()
-
-  const AddToWishlist = (product) => {
-    dispatch(addToWishList(product))
-  }
-
-  const RemoveFromWishlist = (product) => {
-    dispatch(removeFromWishList(product))
-  }
+  const favItems = useWishListStore((state) => state.favItems)
+  const addToWishList = useWishListStore((state) => state.addToWishList)
+  const removeFromWishList = useWishListStore((state) => state.removeFromWishList)
 
   const ratingStar = Array.from({ length: 5 }, (_, index) => {
     let number = index + 0.5
@@ -52,12 +41,12 @@ const Star = ({ stars, product }) => {
         {favItems.some((item) => item.id === product?.id) ? (
           <FavoriteOutlined
             className="fav_icon"
-            onClick={() => RemoveFromWishlist(product)}
+            onClick={() => removeFromWishList(product)}
           />
         ) : (
           <FavoriteBorderOutlined
             className="fav_icon"
-            onClick={() => AddToWishlist(product)}
+            onClick={() => addToWishList(product)}
           />
         )}
       </div>

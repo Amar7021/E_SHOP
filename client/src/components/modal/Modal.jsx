@@ -1,17 +1,17 @@
 import PropTypes from "prop-types"
-import { useDispatch } from "react-redux"
-import { clearCart } from "../../redux/features/cartSlice"
-import { clearWishlist } from "../../redux/features/wishListSlice"
+import { useCartStore } from "../../store/cartStore"
+import { useWishListStore } from "../../store/wishListStore"
 import "./modal.scss"
 
 const Modal = ({ onClose, cart = "cart" }) => {
-  const dispatch = useDispatch()
+  const clearCart = useCartStore((state) => state.clearCart)
+  const clearWishlist = useWishListStore((state) => state.clearWishlist)
 
   const handleClear = () => {
     if (cart === "cart") {
-      dispatch(clearCart())
+      clearCart()
     } else if (cart === "wishlist") {
-      dispatch(clearWishlist())
+      clearWishlist()
     }
     window.scrollTo(0, 0)
     onClose()

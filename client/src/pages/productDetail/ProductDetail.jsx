@@ -9,8 +9,7 @@ import {
 } from "@mui/icons-material"
 import axios from "axios"
 import Star from "../../components/star/Star"
-import { addToCart } from "../../redux/features/cartSlice"
-import { useDispatch, useSelector } from "react-redux"
+import { useCartStore } from "../../store/cartStore"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
 import placeHolderImage from "../../assets/images/logo.png"
@@ -19,8 +18,8 @@ import "./productDetail.scss"
 const ProductDetail = () => {
   const { id } = useParams()
   const [product, setProduct] = useState(null)
-  const dispatch = useDispatch()
-  const cart = useSelector((state) => state.cart)
+  const cartItems = useCartStore((state) => state.cartItems)
+  const addToCart = useCartStore((state) => state.addToCart)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -36,8 +35,8 @@ const ProductDetail = () => {
     fetchProductDetails()
   }, [id])
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
+  const handleAddToCart = (prod) => {
+    addToCart(prod)
   }
 
   const handleGoToCart = () => {
@@ -86,7 +85,7 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className="addBtns">
-              {cart.cartItems.some((item) => item.id === product?.id) ? (
+              {cartItems.some((item) => item.id === product?.id) ? (
                 <button
                   className="CartBtn"
                   onClick={handleGoToCart}

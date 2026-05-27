@@ -1,24 +1,20 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useUserStore } from "../../../store/userStore"
+import { useCartStore } from "../../../store/cartStore"
 import { NavLink, useNavigate } from "react-router-dom"
-import {
-  FavoriteOutlined,
-  KeyboardArrowDown,
-  ShoppingCartOutlined,
-} from "@mui/icons-material"
-import PropTypes from "prop-types"
-import {
-  logoutStarted,
-  logoutSuccess,
-  logoutFailed,
-} from "../../../redux/features/userSlice"
 import toast from "react-hot-toast"
 import axios from "../../../services/helper"
 import "./navbar.scss"
+import { ArrowDown, Heart, ShoppingCart } from "lucide-react"
 
 const NavLinks = ({ isMobileMenuVisible, setMobileMenuVisible }) => {
-  const { currentUser, loading } = useSelector((state) => state.user)
-  const { cartItems } = useSelector((state) => state.cart)
-  const dispatch = useDispatch()
+  const currentUser = useUserStore((state) => state.currentUser)
+  const loading = useUserStore((state) => state.loading)
+  const logoutStarted = useUserStore((state) => state.logoutStarted)
+  const logoutSuccess = useUserStore((state) => state.logoutSuccess)
+  const logoutFailed = useUserStore((state) => state.logoutFailed)
+
+  const cartItems = useCartStore((state) => state.cartItems)
+
   const navigate = useNavigate()
 
   const profileIcon = currentUser?.user?.username
@@ -40,15 +36,15 @@ const NavLinks = ({ isMobileMenuVisible, setMobileMenuVisible }) => {
 
   const handleLogout = async () => {
     try {
-      dispatch(logoutStarted())
+      logoutStarted()
       await axios.post("/users/logout")
-      dispatch(logoutSuccess())
+      logoutSuccess()
       toast.success("Logout Successful!")
       closeMobileMenu()
       navigate("/login")
     } catch (error) {
       console.log(error)
-      dispatch(logoutFailed())
+      logoutFailed(error.message)
     }
   }
 
@@ -65,7 +61,7 @@ const NavLinks = ({ isMobileMenuVisible, setMobileMenuVisible }) => {
                 <span className="username">{toCapitalize(loggedInUser)}</span>
               </NavLink>
               <div className="dropdown">
-                <KeyboardArrowDown className="arrow_icon" />
+                <ArrowDown className="arrow_icon" />
                 <div className="dropdown_links">
                   <span
                     className="logout"
@@ -82,9 +78,9 @@ const NavLinks = ({ isMobileMenuVisible, setMobileMenuVisible }) => {
                 className="nav_link"
                 onClick={closeMobileMenu}
               >
-                Whishlist
+                Wishlist
                 <span>
-                  <FavoriteOutlined className="fav_icon" />
+                  <Heart className="fav_icon" />
                 </span>
               </NavLink>
             </li>
@@ -94,7 +90,7 @@ const NavLinks = ({ isMobileMenuVisible, setMobileMenuVisible }) => {
                 className="nav_link"
                 onClick={closeMobileMenu}
               >
-                <ShoppingCartOutlined className="shop_icon" />
+                <ShoppingCart className="shop_icon" />
                 <div className="cart_notification">
                   <span>{cartItems.length}</span>
                 </div>
@@ -136,8 +132,3 @@ const NavLinks = ({ isMobileMenuVisible, setMobileMenuVisible }) => {
 }
 
 export default NavLinks
-
-NavLinks.propTypes = {
-  setMobileMenuVisible: PropTypes.func,
-  isMobileMenuVisible: PropTypes.bool,
-}

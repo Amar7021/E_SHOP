@@ -1,9 +1,9 @@
 import Navbar from "../../components/common/navbar/Navbar"
 import Footer from "../../components/common/footer/Footer"
-import { useDispatch, useSelector } from "react-redux"
+import { useWishListStore } from "../../store/wishListStore"
+import { useCartStore } from "../../store/cartStore"
 import { Link, useNavigate } from "react-router-dom"
 import { KeyboardBackspaceOutlined } from "@mui/icons-material"
-import { addToCart } from "../../redux/features/cartSlice"
 import ProductCard from "../../components/productCard/ProductCard"
 import { createPortal } from "react-dom"
 import Modal from "../../components/modal/Modal"
@@ -11,14 +11,14 @@ import { useState } from "react"
 import "./whishlist.scss"
 
 const Whishlist = () => {
-  const { favItems } = useSelector((state) => state.wishlist)
-  const cart = useSelector((state) => state.cart)
+  const favItems = useWishListStore((state) => state.favItems)
+  const cartItems = useCartStore((state) => state.cartItems)
+  const addToCart = useCartStore((state) => state.addToCart)
   const [isOpen, setIsOpen] = useState(false)
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
+    addToCart(product)
   }
 
   const handleGoToCart = () => {
@@ -90,7 +90,7 @@ const Whishlist = () => {
                       key={favItem.id}
                       product={favItem}
                     />
-                    {cart.cartItems.some((item) => item.id === favItem?.id) ? (
+                    {cartItems.some((item) => item.id === favItem?.id) ? (
                       <button
                         type="button"
                         className="cartBtn"

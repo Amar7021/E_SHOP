@@ -1,15 +1,9 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
-import { Link, useNavigate } from "react-router-dom"
 import { KeyboardBackspaceOutlined } from "@mui/icons-material"
-import {
-  addToCart,
-  decreaseCart,
-  getTotals,
-  removeFromCart,
-} from "../../redux/features/cartSlice"
-import { useEffect, useState } from "react"
+import { useCartStore } from "../../store/cartStore"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
 import placeHolderImage from "../../assets/images/logo.png"
@@ -18,25 +12,30 @@ import { createPortal } from "react-dom"
 import "./cart.scss"
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cart)
-  const dispatch = useDispatch()
+  const cartItems = useCartStore((state) => state.cartItems)
+  const cartTotalAmount = useCartStore((state) => state.cartTotalAmount)
+  const addToCart = useCartStore((state) => state.addToCart)
+  const decreaseCart = useCartStore((state) => state.decreaseCart)
+  const removeFromCart = useCartStore((state) => state.removeFromCart)
+  const getTotals = useCartStore((state) => state.getTotals)
+
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(getTotals())
-  }, [dispatch, cart])
+    getTotals()
+  }, [cartItems, getTotals])
 
   const handleIncreaseCartItem = (product) => {
-    dispatch(addToCart(product))
+    addToCart(product)
   }
 
   const handleRemoveFromCart = (cartItem) => {
-    dispatch(removeFromCart(cartItem))
+    removeFromCart(cartItem)
   }
 
   const handleDecreaseCartItem = (cartItem) => {
-    dispatch(decreaseCart(cartItem))
+    decreaseCart(cartItem)
   }
 
   const handleModal = () => {
@@ -59,7 +58,7 @@ const Cart = () => {
             <KeyboardBackspaceOutlined />
           </span>
           <h2 className="shopping_cart_heading">Your Cart</h2>
-          {cart.cartItems.length === 0 ? (
+          {cartItems.length === 0 ? (
             <div className="empty_cart">
               <p>Your cart is currently empty</p>
               <div className="start_shopping">
@@ -81,7 +80,7 @@ const Cart = () => {
                 <h3 className="total">Total</h3>
               </div>
               <div className="cart_items">
-                {cart.cartItems?.map((cartItem) => (
+                {cartItems?.map((cartItem) => (
                   <div
                     className="cart_item"
                     key={cartItem.id}
@@ -147,7 +146,7 @@ const Cart = () => {
                 <div className="cart_checkout">
                   <div className="subtotal">
                     <span>Subtotal</span>
-                    <span className="amount">$ {cart.cartTotalAmount}</span>
+                    <span className="amount">$ {cartTotalAmount}</span>
                   </div>
                   <p className="cart_shipping">Free Shipping</p>
                   <button className="checkout_btn">Check out</button>
