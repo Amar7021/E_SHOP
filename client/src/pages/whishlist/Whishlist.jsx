@@ -3,11 +3,11 @@ import Footer from "../../components/common/footer/Footer"
 import { useWishListStore } from "../../store/wishListStore"
 import { useCartStore } from "../../store/cartStore"
 import { Link, useNavigate } from "react-router-dom"
-import { KeyboardBackspaceOutlined } from "@mui/icons-material"
 import ProductCard from "../../components/productCard/ProductCard"
 import { createPortal } from "react-dom"
 import Modal from "../../components/modal/Modal"
 import { useState } from "react"
+import { MoveLeft } from "lucide-react"
 import "./whishlist.scss"
 
 const Whishlist = () => {
@@ -42,7 +42,7 @@ const Whishlist = () => {
             onClick={() => navigate("/category/all")}
             className="goBackLink"
           >
-            <KeyboardBackspaceOutlined />
+            <MoveLeft />
           </span>
           <div className="wishlist_header">
             <h1>
@@ -76,7 +76,7 @@ const Whishlist = () => {
                   to="/category/all"
                   className="redirectLink"
                 >
-                  <KeyboardBackspaceOutlined />
+                  <MoveLeft />
                   <span>Add Something In Your Wishlist</span>
                 </Link>
               </div>

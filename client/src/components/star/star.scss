@@ -9,11 +9,23 @@
     right: 10px;
     top: 20px;
     cursor: pointer;
+    width: 24px;
+    height: 24px;
   }
 
   .stars {
     .star_icon {
       font-size: var(--fsize-semimd);
+
+      &.filled {
+        color: #f5a623;
+        fill: #f5a623;
+      }
+
+      &.empty {
+        color: #d1d5db;
+        fill: #d1d5db;
+      }
     }
   }
 }

@@ -1,11 +1,6 @@
-import {
-  AllInboxRounded,
-  SmartphoneOutlined,
-  CheckroomOutlined,
-  DiamondOutlined,
-} from "@mui/icons-material"
 import { NavLink } from "react-router-dom"
 import "./productNavbar.scss"
+import { GalleryVerticalEnd, Gem, Shirt, Smartphone } from "lucide-react"
 
 const ProductNavbar = () => {
   return (
@@ -16,7 +11,7 @@ const ProductNavbar = () => {
             to="all"
             className="category_link"
           >
-            <AllInboxRounded />
+            <GalleryVerticalEnd />
             <span className="product_list">All</span>
           </NavLink>
         </li>
@@ -25,7 +20,7 @@ const ProductNavbar = () => {
             to="smartphones"
             className="category_link"
           >
-            <SmartphoneOutlined />
+            <Smartphone />
             <span className="product_list">Smartphones</span>
           </NavLink>
         </li>
@@ -34,7 +29,7 @@ const ProductNavbar = () => {
             to="clothing"
             className="category_link"
           >
-            <CheckroomOutlined />
+            <Shirt />
             <span className="product_list">Clothing</span>
           </NavLink>
         </li>
@@ -43,7 +38,7 @@ const ProductNavbar = () => {
             to="jewelery"
             className="category_link"
           >
-            <DiamondOutlined />
+            <Gem />
             <span className="product_list">Jewelery</span>
           </NavLink>
         </li>

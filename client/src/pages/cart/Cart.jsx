@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
-import { KeyboardBackspaceOutlined } from "@mui/icons-material"
 import { useCartStore } from "../../store/cartStore"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
@@ -10,6 +9,7 @@ import placeHolderImage from "../../assets/images/logo.png"
 import Modal from "../../components/modal/Modal"
 import { createPortal } from "react-dom"
 import "./cart.scss"
+import { MoveLeft } from "lucide-react"
 
 const Cart = () => {
   const cartItems = useCartStore((state) => state.cartItems)
@@ -55,7 +55,7 @@ const Cart = () => {
             onClick={() => navigate("/category/all")}
             className="goBackLink"
           >
-            <KeyboardBackspaceOutlined />
+            <MoveLeft />
           </span>
           <h2 className="shopping_cart_heading">Your Cart</h2>
           {cartItems.length === 0 ? (
@@ -66,7 +66,7 @@ const Cart = () => {
                   to="/category/all"
                   className="redirectLink"
                 >
-                  <KeyboardBackspaceOutlined />
+                  <MoveLeft />
                   <span>Start Shopping</span>
                 </Link>
               </div>

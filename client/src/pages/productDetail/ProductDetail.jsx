@@ -2,11 +2,6 @@ import { useNavigate, useParams } from "react-router-dom"
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
 import { useEffect, useState } from "react"
-import {
-  LocalShippingOutlined,
-  CachedOutlined,
-  KeyboardBackspaceOutlined,
-} from "@mui/icons-material"
 import axios from "axios"
 import Star from "../../components/star/Star"
 import { useCartStore } from "../../store/cartStore"
@@ -14,6 +9,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
 import placeHolderImage from "../../assets/images/logo.png"
 import "./productDetail.scss"
+import { MoveLeft, Replace, Truck } from "lucide-react"
 
 const ProductDetail = () => {
   const { id } = useParams()
@@ -52,7 +48,7 @@ const ProductDetail = () => {
             onClick={() => navigate("/category/all")}
             className="goBackLink"
           >
-            <KeyboardBackspaceOutlined />
+            <MoveLeft />
           </span>
           <div className="left">
             <LazyLoadImage
@@ -78,10 +74,10 @@ const ProductDetail = () => {
             </div>
             <div className="product_delivery">
               <div className="delivery_specs">
-                <LocalShippingOutlined /> <span>Free Delivery</span>
+                <Truck /> <span>Free Delivery</span>
               </div>
               <div className="delivery_specs">
-                <CachedOutlined /> <span>14 Days Replacement</span>
+                <Replace /><span>14 Days Replacement</span>
               </div>
             </div>
             <div className="addBtns">

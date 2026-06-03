@@ -1,12 +1,12 @@
 import Banner from "../../components/banner/Banner"
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
-import { ArrowForwardIosOutlined } from "@mui/icons-material"
 import { Link } from "react-router-dom"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
 import placeHolderImage from "../../assets/images/logo.png"
 import "./home.scss"
+import { MoveRight } from "lucide-react"
 
 const Home = () => {
   return (
@@ -21,7 +21,7 @@ const Home = () => {
           >
             <h1 className="category_heading">
               <span className="pr_category">Product Categories</span>
-              <ArrowForwardIosOutlined className="arrow_icon" />
+              <MoveRight className="arrow_icon" />
             </h1>
           </Link>
           <div className="category_wrapper">

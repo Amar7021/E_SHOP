@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import ProductCard from "../../components/productCard/ProductCard"
-import {
-  ArrowBackIosNewOutlined,
-  ArrowForwardIosOutlined,
-} from "@mui/icons-material"
 import ProductCardSkeleton from "../../components/productCardSkeleton/ProductCardSkeleton"
 import "./allCategories.scss"
+import { MoveLeft, MoveRight } from "lucide-react"
 
 const AllCategories = () => {
   const [products, setProducts] = useState([])
@@ -25,7 +22,7 @@ const AllCategories = () => {
           `https://dummyjson.com/products?limit=10&skip=${page * 10 - 10}`
         )
         setProducts(response.data.products)
-        setTotalPages(response.data.total / 10)
+        setTotalPages(Math.ceil(response.data.total / 10))
         setLoading(false)
       } catch (error) {
         console.log(error)
@@ -102,9 +99,9 @@ const AllCategories = () => {
             className={page > 1 ? "" : "pagination_disable"}
             onClick={() => selectPageHandler(page - 1)}
           >
-            <ArrowBackIosNewOutlined className="pagination_icon" />
+            <MoveLeft className="pagination_icon" />
           </span>
-          {[...Array(totalPages)].map((_, i) => {
+          {Array.from({ length: totalPages }, (_, i) => {
             return (
               <span
                 key={i}
@@ -115,11 +112,14 @@ const AllCategories = () => {
               </span>
             )
           })}
+          {
+
+          }
           <span
             className={page < totalPages ? "" : "pagination_disable"}
             onClick={() => selectPageHandler(page + 1)}
           >
-            <ArrowForwardIosOutlined className="pagination_icon" />
+            <MoveRight className="pagination_icon" />
           </span>
         </div>
       )}
