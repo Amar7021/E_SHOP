@@ -1,26 +1,30 @@
-import Footer from "../../components/common/footer/Footer"
-import Navbar from "../../components/common/navbar/Navbar"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { loginSchema } from "../../AuthSchema"
-import { useState } from "react"
-import axios from "../../services/helper"
-import toast from "react-hot-toast"
-import { useUserStore } from "../../store/userStore"
-import { useNavigate } from "react-router-dom"
-import LoadingSVG from "../../components/loading/LoadingSVG"
-import { Eye, EyeOff } from "lucide-react"
-import "./login.scss"
+import Footer from "../../components/common/footer/Footer";
+import Navbar from "../../components/common/navbar/Navbar";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../../AuthSchema";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../../services/helper";
+import toast from "react-hot-toast";
+import { Eye, EyeOff, ShoppingBag } from "lucide-react";
+import { useUserStore } from "../../store/userStore";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const Login = () => {
-  const loading = useUserStore((state) => state.loading)
-  const authStarted = useUserStore((state) => state.authStarted)
-  const authSuccessful = useUserStore((state) => state.authSuccessful)
-  const authFailed = useUserStore((state) => state.authFailed)
+  const loading = useUserStore((state) => state.loading);
+  const authStarted = useUserStore((state) => state.authStarted);
+  const authSuccessful = useUserStore((state) => state.authSuccessful);
+  const authFailed = useUserStore((state) => state.authFailed);
 
-  const [isPassword, setIsPassword] = useState(false)
-  const [isError, setIsError] = useState(null)
-  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false);
+  const [apiError, setApiError] = useState("");
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,115 +33,187 @@ const Login = () => {
   } = useForm({
     resolver: zodResolver(loginSchema),
     mode: "onChange",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  })
+  });
 
   const onSubmit = async (data) => {
-    const { email, password } = data
     try {
-      authStarted()
-      const response = await axios.post("/users/login", { email, password })
-      authSuccessful(response.data)
-      navigate("/")
-      toast.success("Login Successful!")
-    } catch (error) {
-      const errMsg = error.response?.data?.message || error.message
-      setIsError(errMsg)
-      authFailed(errMsg)
-    }
-  }
+      setApiError("");
+      authStarted();
 
-  const togglePassword = () => {
-    setIsPassword((prev) => !prev)
-  }
+      const response = await axios.post("/users/login", data);
+
+      authSuccessful(response.data);
+
+      toast.success("Login Successful");
+
+      navigate("/");
+    } catch (error) {
+      const err =
+        error.response?.data?.message ||
+        error.message ||
+        "Login failed";
+
+      setApiError(err);
+      authFailed(err);
+    }
+  };
 
   return (
     <>
       <Navbar />
-      <main className="login">
-        <section className="register_section">
-          <div className="form_container">
-            <h2 className="register_header">Login</h2>
-            <form
-              className="form_wrapper"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className="email-input">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  {...register("email")}
-                  className={errors.email ? "input-error" : ""}
-                />
-                <div className="emailError">
-                  {errors.email ? (
-                    <p className="error">{errors.email.message}</p>
-                  ) : null}
+
+      <main className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-muted/30 px-4 py-12">
+        <div className="grid w-full max-w-6xl gap-10 lg:grid-cols-2">
+          <div className="hidden lg:flex flex-col justify-center">
+            <div className="max-w-md">
+              <div className="mb-4 flex items-center gap-3">
+                <ShoppingBag className="size-8 text-primary" />
+                <h1 className="text-4xl font-bold">
+                  Welcome Back
+                </h1>
+              </div>
+
+              <p className="text-lg text-muted-foreground">
+                Sign in to access your orders, wishlist,
+                personalized recommendations and exclusive offers.
+              </p>
+
+              <div className="mt-10 space-y-4">
+                <div className="rounded-xl border bg-card p-4">
+                  🚚 Track orders instantly
+                </div>
+
+                <div className="rounded-xl border bg-card p-4">
+                  ❤️ Manage your wishlist
+                </div>
+
+                <div className="rounded-xl border bg-card p-4">
+                  🎁 Exclusive member discounts
                 </div>
               </div>
-              <div className="password-input">
-                <input
-                  type={isPassword ? "text" : "password"}
-                  placeholder="Password"
-                  maxLength={21}
-                  {...register("password")}
-                  className={errors.password ? "input-error" : ""}
-                />
-                <span
-                  className="toggle-password"
-                  onClick={togglePassword}
-                >
-                  {isPassword ? (
-                    <EyeOff className="password_icons" />
-                  ) : (
-                    <Eye className="password_icons" />
+            </div>
+          </div>
+          <Card className="mx-auto w-full max-w-md shadow-xl">
+            <CardContent className="p-8">
+              <div className="mb-8 text-center">
+                <h2 className="text-3xl font-bold">
+                  Login
+                </h2>
+
+                <p className="mt-2 text-muted-foreground">
+                  Enter your credentials to continue
+                </p>
+              </div>
+
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    {...register("email")}
+                  />
+
+                  {errors.email && (
+                    <p className="text-sm text-destructive">
+                      {errors.email.message}
+                    </p>
                   )}
-                </span>
-                <div className="passwordError">
-                  {errors.password ? (
-                    <p className="error">{errors.password.message}</p>
-                  ) : null}
                 </div>
-              </div>
-              <div className="btn">
-                <button
-                  className="loginButton"
-                  type="submit"
-                  disabled={!isValid}
-                >
-                  {loading ? (
-                    <LoadingSVG
-                      width={24}
-                      height={24}
+
+                <div className="space-y-2">
+                  <Label htmlFor="password">
+                    Password
+                  </Label>
+
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={
+                        showPassword
+                          ? "text"
+                          : "password"
+                      }
+                      placeholder="Enter password"
+                      {...register("password")}
                     />
-                  ) : (
-                    "Login"
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowPassword(
+                          !showPassword
+                        )
+                      }
+                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                    >
+                      {showPassword ? (
+                        <EyeOff size={18} />
+                      ) : (
+                        <Eye size={18} />
+                      )}
+                    </button>
+                  </div>
+
+                  {errors.password && (
+                    <p className="text-sm text-destructive">
+                      {errors.password.message}
+                    </p>
                   )}
-                </button>
-                <div className="apiError">
-                  {isError && <p className="error">{isError}</p>}
                 </div>
-                <div className="auth_confirm">
-                  <span className="confirm">Don&apos;t have an account?</span>
+
+                {/* <div className="flex justify-end">
                   <button
-                    className="confirm_btn"
                     type="button"
-                    onClick={() => navigate("/register")}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Forgot password?
+                  </button>
+                </div> */}
+
+                {apiError && (
+                  <Alert variant="destructive">
+                    <AlertDescription>
+                      {apiError}
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={!isValid || loading}
+                >
+                  {loading
+                    ? "Signing In..."
+                    : "Login"}
+                </Button>
+
+                <div className="text-center text-sm">
+                  Don't have an account?{" "}
+                  <button
+                    type="button"
+                    className="font-medium text-primary hover:underline"
+                    onClick={() =>
+                      navigate("/register")
+                    }
                   >
                     Register
                   </button>
                 </div>
-              </div>
-            </form>
-          </div>
-        </section>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

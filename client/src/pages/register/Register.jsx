@@ -1,21 +1,37 @@
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signUpSchema } from "../../AuthSchema"
-import { useState } from "react"
 import axios from "../../services/helper"
-import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
+import {
+  Eye,
+  EyeOff,
+  ShoppingBag,
+  UserPlus,
+} from "lucide-react"
 import LoadingSVG from "../../components/loading/LoadingSVG"
-import "./register.scss"
-import { Eye, EyeOff } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Alert,
+  AlertDescription,
+} from "@/components/ui/alert"
 
 const Register = () => {
-  const [isPassword, setIsPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(null)
   const navigate = useNavigate()
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [apiError, setApiError] = useState(null)
 
   const {
     register,
@@ -32,127 +48,200 @@ const Register = () => {
   })
 
   const onSubmit = async (data) => {
-    const { email, username, password } = data
     try {
-      setIsLoading(true)
-      setIsError(null)
-      await axios.post("/users/register", {
-        email,
-        username,
-        password,
-      })
-      navigate("/login")
-      toast.success("Registration Successful!")
-      setIsLoading(false)
-    } catch (error) {
-      setIsError(error.response?.data?.message || error.message)
-      setIsLoading(false)
-      console.log(error)
-    }
-  }
+      setLoading(true)
+      setApiError(null)
 
-  const togglePassword = () => {
-    setIsPassword((prev) => !prev)
+      await axios.post("/users/register", data)
+
+      toast.success("Registration Successful")
+
+      navigate("/login")
+    } catch (error) {
+      setApiError(
+        error.response?.data?.message ||
+        error.message
+      )
+    } finally {
+      setLoading(false)
+    }
+
   }
 
   return (
-    <>
-      <Navbar />
-      <main className="register">
-        <section className="register_section">
-          <div className="form_container">
-            <h2 className="register_header">Register</h2>
-            <form
-              className="form_wrapper"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className="username-input">
-                <input
-                  type="text"
-                  placeholder="Username"
-                  maxLength={17}
-                  {...register("username")}
-                  className={errors.username ? "input-error" : ""}
-                />
-                <div className="usernameError">
-                  {errors.username ? (
-                    <p className="error">{errors.username.message}</p>
-                  ) : null}
+    <> <Navbar />
+      <main className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-muted/30 px-4 py-12">
+        <div className="grid w-full max-w-6xl gap-10 lg:grid-cols-2">
+          <div className="hidden lg:flex flex-col justify-center">
+            <div className="max-w-md">
+              <div className="mb-5 flex items-center gap-3">
+                <ShoppingBag className="size-8 text-primary" />
+
+                <h1 className="text-4xl font-bold">
+                  Join Our Store
+                </h1>
+              </div>
+
+              <p className="text-lg text-muted-foreground">
+                Create your account and unlock a
+                personalized shopping experience.
+              </p>
+
+              <div className="mt-10 space-y-4">
+                <div className="rounded-xl border bg-card p-4">
+                  🎁 Exclusive member offers
+                </div>
+
+                <div className="rounded-xl border bg-card p-4">
+                  ❤️ Save products to wishlist
+                </div>
+
+                <div className="rounded-xl border bg-card p-4">
+                  🚚 Faster checkout experience
                 </div>
               </div>
-              <div className="email-input">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  {...register("email")}
-                  className={errors.email ? "input-error" : ""}
-                />
-                <div className="emailError">
-                  {errors.email ? (
-                    <p className="error">{errors.email.message}</p>
-                  ) : null}
-                </div>
+            </div>
+          </div>
+          <Card className="mx-auto w-full max-w-md shadow-xl">
+            <CardContent className="p-8">
+              <div className="mb-8 text-center">
+                <UserPlus className="mx-auto mb-4 size-10 text-primary" />
+
+                <h2 className="text-3xl font-bold">
+                  Create Account
+                </h2>
+
+                <p className="mt-2 text-muted-foreground">
+                  Sign up to start shopping
+                </p>
               </div>
-              <div className="password-input">
-                <input
-                  type={isPassword ? "text" : "password"}
-                  placeholder="Password"
-                  maxLength={21}
-                  {...register("password")}
-                  className={errors.password ? "input-error" : ""}
-                />
-                <span
-                  className="toggle-password"
-                  onClick={togglePassword}
-                >
-                  {isPassword ? (
-                    <EyeOff className="password_icons" />
-                  ) : (
-                    <Eye className="password_icons" />
+
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="username">
+                    Username
+                  </Label>
+
+                  <Input
+                    id="username"
+                    placeholder="john_doe"
+                    maxLength={17}
+                    {...register("username")}
+                  />
+
+                  {errors.username && (
+                    <p className="text-sm text-destructive">
+                      {errors.username.message}
+                    </p>
                   )}
-                </span>
-                <div className="passwordError">
-                  {errors.password ? (
-                    <p className="error">{errors.password.message}</p>
-                  ) : null}
                 </div>
-              </div>
-              <div className="btn">
-                <button
-                  className="loginButton"
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">
+                    Email
+                  </Label>
+
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    {...register("email")}
+                  />
+
+                  {errors.email && (
+                    <p className="text-sm text-destructive">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="password">
+                    Password
+                  </Label>
+
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={
+                        showPassword
+                          ? "text"
+                          : "password"
+                      }
+                      placeholder="Create password"
+                      maxLength={21}
+                      {...register("password")}
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowPassword(
+                          (prev) => !prev
+                        )
+                      }
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                    >
+                      {showPassword ? (
+                        <EyeOff size={18} />
+                      ) : (
+                        <Eye size={18} />
+                      )}
+                    </button>
+                  </div>
+
+                  {errors.password && (
+                    <p className="text-sm text-destructive">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
+
+                {apiError && (
+                  <Alert variant="destructive">
+                    <AlertDescription>
+                      {apiError}
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                <Button
                   type="submit"
-                  disabled={!isValid}
+                  className="w-full"
+                  disabled={!isValid || loading}
                 >
-                  {isLoading ? (
+                  {loading ? (
                     <LoadingSVG
-                      width={24}
-                      height={24}
+                      width={20}
+                      height={20}
                     />
                   ) : (
-                    "Register"
+                    "Create Account"
                   )}
-                </button>
-                <div className="apiError">
-                  {isError && <p className="error">{isError}</p>}
-                </div>
-                <div className="auth_confirm">
-                  <span className="confirm">Already have an account?</span>
+                </Button>
+
+                <div className="text-center text-sm">
+                  Already have an account?{" "}
                   <button
-                    className="confirm_btn"
                     type="button"
-                    onClick={() => navigate("/login")}
+                    onClick={() =>
+                      navigate("/login")
+                    }
+                    className="font-medium text-primary hover:underline"
                   >
                     Login
                   </button>
                 </div>
-              </div>
-            </form>
-          </div>
-        </section>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </main>
       <Footer />
-    </>
-  )
+    </>)
 }
 
 export default Register

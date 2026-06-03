@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import { useWishListStore } from "../../store/wishListStore"
 import "./star.scss"
-import { Heart, HeartPlus, StarHalf, StarIcon, StarsIcon } from "lucide-react"
+import { Heart, StarIcon } from "lucide-react"
 
 const Star = ({ stars, product }) => {
   const favItems = useWishListStore((state) => state.favItems)
