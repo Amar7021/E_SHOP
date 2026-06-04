@@ -4,9 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../AuthSchema";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import axios from "../../services/helper";
-import toast from "react-hot-toast";
 import { Eye, EyeOff, ShoppingBag } from "lucide-react";
 import { useUserStore } from "../../store/userStore";
 import { Button } from "@/components/ui/button";
@@ -14,12 +13,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { toast } from "sonner";
 
-const Login = () => {
+const SignIn = () => {
   const loading = useUserStore((state) => state.loading);
   const authStarted = useUserStore((state) => state.authStarted);
   const authSuccessful = useUserStore((state) => state.authSuccessful);
   const authFailed = useUserStore((state) => state.authFailed);
+
+  const location = useLocation()
+  console.log({ location })
 
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
@@ -44,9 +47,16 @@ const Login = () => {
 
       authSuccessful(response.data);
 
-      toast.success("Login Successful");
+      toast.success("Login Successful", {
+        position: "bottom-right"
+      });
 
-      navigate("/");
+      let redirectUrl = location.state?.from?.pathname
+      redirectUrl = redirectUrl !== "/login" ? redirectUrl : "/";
+
+      navigate(redirectUrl, {
+        replace: true
+      });
     } catch (error) {
       const err =
         error.response?.data?.message ||
@@ -62,7 +72,7 @@ const Login = () => {
     <>
       <Navbar />
 
-      <main className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-muted/30 px-4 py-12">
+      <main className="flex min-h-[calc(100vh-80px)] mt-[25px] items-center justify-center bg-muted/30 px-4 py-12">
         <div className="grid w-full max-w-6xl gap-10 lg:grid-cols-2">
           <div className="hidden lg:flex flex-col justify-center">
             <div className="max-w-md">
@@ -183,7 +193,6 @@ const Login = () => {
                     </AlertDescription>
                   </Alert>
                 )}
-
                 <Button
                   type="submit"
                   className="w-full"
@@ -191,19 +200,18 @@ const Login = () => {
                 >
                   {loading
                     ? "Signing In..."
-                    : "Login"}
+                    : "Sign In"}
                 </Button>
-
                 <div className="text-center text-sm">
                   Don't have an account?{" "}
                   <button
                     type="button"
                     className="font-medium text-primary hover:underline"
                     onClick={() =>
-                      navigate("/register")
+                      navigate("/sign-up")
                     }
                   >
-                    Register
+                    Sign Up
                   </button>
                 </div>
               </form>
@@ -216,4 +224,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

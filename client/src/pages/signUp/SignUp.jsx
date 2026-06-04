@@ -1,12 +1,11 @@
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signUpSchema } from "../../AuthSchema"
 import axios from "../../services/helper"
-import toast from "react-hot-toast"
 import {
   Eye,
   EyeOff,
@@ -25,8 +24,9 @@ import {
   Alert,
   AlertDescription,
 } from "@/components/ui/alert"
+import { toast } from "sonner"
 
-const Register = () => {
+const SignUp = () => {
   const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false)
@@ -70,7 +70,7 @@ const Register = () => {
 
   return (
     <> <Navbar />
-      <main className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-muted/30 px-4 py-12">
+      <main className="flex min-h-[calc(100vh-80px)] mt-[45px] items-center justify-center bg-muted/30 px-4 py-12">
         <div className="grid w-full max-w-6xl gap-10 lg:grid-cols-2">
           <div className="hidden lg:flex flex-col justify-center">
             <div className="max-w-md">
@@ -228,11 +228,11 @@ const Register = () => {
                   <button
                     type="button"
                     onClick={() =>
-                      navigate("/login")
+                      navigate("/sign-in")
                     }
                     className="font-medium text-primary hover:underline"
                   >
-                    Login
+                    Sign In
                   </button>
                 </div>
               </form>
@@ -244,4 +244,4 @@ const Register = () => {
     </>)
 }
 
-export default Register
+export default SignUp

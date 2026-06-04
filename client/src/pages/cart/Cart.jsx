@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
 import Footer from "../../components/common/footer/Footer"
 import Navbar from "../../components/common/navbar/Navbar"
 import { useCartStore } from "../../store/cartStore"
@@ -10,6 +9,7 @@ import Modal from "../../components/modal/Modal"
 import { createPortal } from "react-dom"
 import "./cart.scss"
 import { MoveLeft } from "lucide-react"
+import { Link, useNavigate } from "react-router"
 
 const Cart = () => {
   const cartItems = useCartStore((state) => state.cartItems)

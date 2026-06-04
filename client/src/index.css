@@ -222,6 +222,10 @@ li {
     list-style: none;
 }
 
+.nav a {
+    color: var(--primary);
+}
+
 @theme inline {
     --font-heading: var(--font-sans);
     --font-sans: 'Geist Variable', sans-serif;
@@ -279,6 +283,7 @@ li {
     }
 }
 
+/* 
 ::-webkit-scrollbar {
     width: 0.6rem;
     border-radius: var(--border-rd-md);
@@ -291,4 +296,4 @@ li {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #535252;
-}
+} */

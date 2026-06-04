@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router"
 import {
   Mail,
 } from "lucide-react"
@@ -123,28 +123,6 @@ const Footer = () => {
             © {new Date().getFullYear()} E-Cart.
             All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <Link
-              to="/privacy-policy"
-              className="hover:text-primary"
-            >
-              Privacy Policy
-            </Link>
-
-            <Link
-              to="/terms"
-              className="hover:text-primary"
-            >
-              Terms of Service
-            </Link>
-
-            <Link
-              to="/cookies"
-              className="hover:text-primary"
-            >
-              Cookies
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

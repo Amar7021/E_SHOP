@@ -1,5 +1,5 @@
 import Star from "../../components/star/Star"
-import { Link } from "react-router-dom"
+import { Link } from "react-router"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
 import placeHolderImage from "../../assets/images/logo.png"

@@ -2,11 +2,16 @@ import PropTypes from "prop-types"
 import { useWishListStore } from "../../store/wishListStore"
 import "./star.scss"
 import { Heart, StarIcon } from "lucide-react"
+import { useUserStore } from "@/store/userStore"
+import { useNavigate } from "react-router"
+import { toast } from "sonner"
 
 const Star = ({ stars, product }) => {
   const favItems = useWishListStore((state) => state.favItems)
   const addToWishList = useWishListStore((state) => state.addToWishList)
   const removeFromWishList = useWishListStore((state) => state.removeFromWishList)
+  const currentUser = useUserStore((state) => state.currentUser)
+  const navigate = useNavigate()
 
   const ratingStar = Array.from({ length: 5 }, (_, index) => {
     const filled = stars - index
@@ -43,6 +48,20 @@ const Star = ({ stars, product }) => {
     )
   })
 
+  const addToListHandler = (item) => {
+    if (!currentUser) {
+      toast.error("Please sign in to add to wishlist", {
+        position: "bottom-right",
+        action: {
+          label: "Sign In",
+          onClick: () => navigate("/sign-in"),
+        }
+      })
+      return
+    }
+    addToWishList(item)
+  }
+
   return (
     <div className="star_rating">
       <div>{ratingStar}</div>
@@ -52,7 +71,7 @@ const Star = ({ stars, product }) => {
             onClick={() => removeFromWishList(product)} />
         ) : (
           <Heart className="fav_icon"
-            onClick={() => addToWishList(product)} />
+            onClick={() => addToListHandler(product)} />
         )}
       </div>
     </div>

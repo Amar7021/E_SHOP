@@ -1,5 +1,5 @@
+import { Navigate, Outlet } from "react-router"
 import { useUserStore } from "../store/userStore"
-import { Navigate, Outlet } from "react-router-dom"
 import LoadingPage from "./loading/LoadingPage"
 
 const ProtectedRoutes = () => {
