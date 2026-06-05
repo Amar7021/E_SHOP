@@ -12,7 +12,6 @@ import {
   ShoppingBag,
   UserPlus,
 } from "lucide-react"
-import LoadingSVG from "../../components/loading/LoadingSVG"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -20,18 +19,18 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Alert,
-  AlertDescription,
-} from "@/components/ui/alert"
 import { toast } from "sonner"
+import { Spinner } from "@/components/ui/spinner"
+import { useUserStore } from "@/store/userStore"
 
 const SignUp = () => {
-  const navigate = useNavigate()
-
   const [showPassword, setShowPassword] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [apiError, setApiError] = useState(null)
+  const loading = useUserStore((state) => state.loading)
+  const authStarted = useUserStore((state) => state.authStarted);
+  const authSuccessful = useUserStore((state) => state.authSuccessful);
+  const authFailed = useUserStore((state) => state.authFailed);
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -49,27 +48,30 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      setLoading(true)
-      setApiError(null)
-
-      await axios.post("/users/register", data)
-
-      toast.success("Registration Successful")
-
-      navigate("/login")
+      authStarted()
+      const response = await axios.post("/users/register", data)
+      if (response.data.success) {
+        authSuccessful(response.data.user);
+        toast.success(response.data.message, {
+          position: "bottom-right"
+        });
+        navigate("/")
+      }
     } catch (error) {
-      setApiError(
+      const err =
         error.response?.data?.message ||
-        error.message
-      )
-    } finally {
-      setLoading(false)
+        error.message ||
+        "Sign Up failed";
+      toast.error(err, {
+        position: "bottom-right"
+      })
+      authFailed(err)
     }
 
   }
 
   return (
-    <> <Navbar />
+    <><Navbar />
       <main className="flex min-h-[calc(100vh-80px)] mt-[45px] items-center justify-center bg-muted/30 px-4 py-12">
         <div className="grid w-full max-w-6xl gap-10 lg:grid-cols-2">
           <div className="hidden lg:flex flex-col justify-center">
@@ -199,25 +201,13 @@ const SignUp = () => {
                     </p>
                   )}
                 </div>
-
-                {apiError && (
-                  <Alert variant="destructive">
-                    <AlertDescription>
-                      {apiError}
-                    </AlertDescription>
-                  </Alert>
-                )}
-
                 <Button
                   type="submit"
                   className="w-full"
                   disabled={!isValid || loading}
                 >
                   {loading ? (
-                    <LoadingSVG
-                      width={20}
-                      height={20}
-                    />
+                    <Spinner />
                   ) : (
                     "Create Account"
                   )}

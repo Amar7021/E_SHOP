@@ -7,7 +7,6 @@ import Star from "../../components/star/Star"
 import { useCartStore } from "../../store/cartStore"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
-import placeHolderImage from "../../assets/images/logo.png"
 import "./productDetail.scss"
 import { MoveLeft, Replace, Truck } from "lucide-react"
 
@@ -56,7 +55,7 @@ const ProductDetail = () => {
               alt={product?.title}
               className="product_img"
               effect="blur"
-              placeholderSrc={placeHolderImage}
+              placeholderSrc={"/assets/images/logo.png"}
             />
           </div>
           <div className="right">

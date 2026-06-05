@@ -1,4 +1,3 @@
-import banner_img from "../../assets/images/banner-image.png"
 import "./banner.scss"
 
 const Banner = () => {
@@ -7,7 +6,7 @@ const Banner = () => {
       <div className="banner_wrapper">
         <div className="img_container">
           <img
-            src={banner_img}
+            src="/assets/banner-image.png"
             alt="banner_img"
             className="banner_img"
           />

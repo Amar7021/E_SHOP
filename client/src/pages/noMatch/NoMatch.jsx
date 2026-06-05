@@ -17,8 +17,8 @@ const NoMatch = () => {
 
   return (
     <>
-      <Navbar />
-      <main className="flex flex-1 items-center justify-center px-4 py-16">
+      <Navbar noSearchBar={false} />
+      <main className="flex flex-1 items-center justify-center px-4 pb-16 pt-32">
         <Card className="w-full max-w-2xl border-0 shadow-none">
           <CardContent className="flex flex-col items-center text-center">
 

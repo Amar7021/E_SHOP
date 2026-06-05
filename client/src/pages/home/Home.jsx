@@ -4,7 +4,6 @@ import Navbar from "../../components/common/navbar/Navbar"
 import { Link } from "react-router"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import "react-lazy-load-image-component/src/effects/blur.css"
-import placeHolderImage from "../../assets/images/logo.png"
 import "./home.scss"
 import { MoveRight } from "lucide-react"
 
@@ -32,7 +31,7 @@ const Home = () => {
                   alt="smartphones"
                   className="category_img"
                   effect="blur"
-                  placeholderSrc={placeHolderImage}
+                  placeholderSrc={"/assets/logo.png"}
                 />
                 <h4 className="category_title">Smartphones</h4>
               </div>
@@ -44,7 +43,7 @@ const Home = () => {
                   alt="clothing"
                   className="category_img"
                   effect="blur"
-                  placeholderSrc={placeHolderImage}
+                  placeholderSrc={"/assets/logo.png"}
                 />
                 <h4 className="category_title">Clothing</h4>
               </div>
@@ -56,6 +55,7 @@ const Home = () => {
                   alt="jewelery"
                   className="category_img"
                   effect="blur"
+                  placeholderSrc={"/assets/logo.png"}
                 />
                 <h4 className="category_title">Jewelery</h4>
               </div>

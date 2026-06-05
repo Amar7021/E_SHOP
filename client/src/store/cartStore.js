@@ -22,7 +22,9 @@ export const useCartStore = create(
           toast.success("Increased product quantity")
         } else {
           newCartItems.push({ ...product, cartQuantity: 1 })
-          toast.success("Product added to cart")
+          toast.success("Product added to cart", {
+            position: "bottom-right"
+          })
         }
 
         set({ cartItems: newCartItems })
@@ -37,10 +39,14 @@ export const useCartStore = create(
         let newCartItems = [...cartItems]
         if (newCartItems[itemIndex].cartQuantity > 1) {
           newCartItems[itemIndex].cartQuantity -= 1
-          toast.error("Decreased product quantity")
+          toast.error("Decreased product quantity", {
+            position: "bottom-right"
+          })
         } else {
           newCartItems = newCartItems.filter((item) => item.id !== product.id)
-          toast.error("Product removed from cart")
+          toast.error("Product removed from cart", {
+            position: "bottom-right"
+          })
         }
 
         set({ cartItems: newCartItems })
@@ -50,14 +56,18 @@ export const useCartStore = create(
       removeFromCart: (product) => {
         const { cartItems } = get()
         const newCartItems = cartItems.filter((item) => item.id !== product.id)
-        toast.error("Product removed from cart")
+        toast.error("Product removed from cart", {
+          position: "bottom-right"
+        })
         set({ cartItems: newCartItems })
         get().getTotals()
       },
 
       clearCart: () => {
         set({ cartItems: [] })
-        toast.success("Cart cleared")
+        toast.success("Cart cleared", {
+          position: "bottom-right"
+        })
         get().getTotals()
       },
 

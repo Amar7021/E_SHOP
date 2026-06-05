@@ -12,8 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 const SignIn = () => {
   const loading = useUserStore((state) => state.loading);
@@ -22,10 +22,8 @@ const SignIn = () => {
   const authFailed = useUserStore((state) => state.authFailed);
 
   const location = useLocation()
-  console.log({ location })
 
   const [showPassword, setShowPassword] = useState(false);
-  const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
 
@@ -40,31 +38,30 @@ const SignIn = () => {
 
   const onSubmit = async (data) => {
     try {
-      setApiError("");
       authStarted();
-
       const response = await axios.post("/users/login", data);
+      if (response.data.success) {
+        authSuccessful(response.data.user);
+        toast.success(response.data.message, {
+          position: "bottom-right"
+        });
 
-      authSuccessful(response.data);
+        let redirectUrl = location.state?.from?.pathname
+        redirectUrl = (!redirectUrl || (redirectUrl === "/sign-in")) ? "/" : redirectUrl;
 
-      toast.success("Login Successful", {
-        position: "bottom-right"
-      });
-
-      let redirectUrl = location.state?.from?.pathname
-      redirectUrl = redirectUrl !== "/login" ? redirectUrl : "/";
-
-      navigate(redirectUrl, {
-        replace: true
-      });
+        navigate(redirectUrl, {
+          replace: true
+        });
+      }
     } catch (error) {
       const err =
         error.response?.data?.message ||
         error.message ||
-        "Login failed";
-
-      setApiError(err);
-      authFailed(err);
+        "Sign In failed";
+      authFailed(err)
+      toast.error(err, {
+        position: "bottom-right"
+      });
     }
   };
 
@@ -107,40 +104,34 @@ const SignIn = () => {
             <CardContent className="p-8">
               <div className="mb-8 text-center">
                 <h2 className="text-3xl font-bold">
-                  Login
+                  Sign In
                 </h2>
-
                 <p className="mt-2 text-muted-foreground">
                   Enter your credentials to continue
                 </p>
               </div>
-
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="space-y-5"
               >
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-
                   <Input
                     id="email"
                     type="email"
                     placeholder="john@example.com"
                     {...register("email")}
                   />
-
                   {errors.email && (
                     <p className="text-sm text-destructive">
                       {errors.email.message}
                     </p>
                   )}
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="password">
                     Password
                   </Label>
-
                   <div className="relative">
                     <Input
                       id="password"
@@ -169,14 +160,12 @@ const SignIn = () => {
                       )}
                     </button>
                   </div>
-
                   {errors.password && (
                     <p className="text-sm text-destructive">
                       {errors.password.message}
                     </p>
                   )}
                 </div>
-
                 {/* <div className="flex justify-end">
                   <button
                     type="button"
@@ -185,21 +174,13 @@ const SignIn = () => {
                     Forgot password?
                   </button>
                 </div> */}
-
-                {apiError && (
-                  <Alert variant="destructive">
-                    <AlertDescription>
-                      {apiError}
-                    </AlertDescription>
-                  </Alert>
-                )}
                 <Button
                   type="submit"
                   className="w-full"
                   disabled={!isValid || loading}
                 >
                   {loading
-                    ? "Signing In..."
+                    ? <Spinner />
                     : "Sign In"}
                 </Button>
                 <div className="text-center text-sm">

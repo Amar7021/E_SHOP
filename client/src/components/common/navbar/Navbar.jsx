@@ -29,7 +29,7 @@ import axios from "../../../services/helper"
 import { useCartStore } from "@/store/cartStore"
 import { toast } from "sonner"
 
-const Navbar = () => {
+const Navbar = ({ noSearchBar = true }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const loading = useUserStore((state) => state.loading)
@@ -67,9 +67,10 @@ const Navbar = () => {
     },
   ]
 
-  const handleWishlistClick = (path) => {
+  const handleLinkClick = (path) => {
+    const slicedPath = path.slice(1)
     if (!currentUser) {
-      toast.error("Please sign in to view wishlist", {
+      toast.error(`Please sign in to view ${slicedPath}`, {
         position: "bottom-right"
       })
       navigate("/sign-in", {
@@ -128,7 +129,7 @@ const Navbar = () => {
           ))}
         </nav> */}
 
-        {dontShowIfSignInOrSignUp && <div className="hidden w-full max-w-md lg:flex">
+        {dontShowIfSignInOrSignUp && noSearchBar && <div className="hidden w-full max-w-md lg:flex">
           <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -168,7 +169,7 @@ const Navbar = () => {
             variant="ghost"
             size="icon"
             className="hidden md:flex"
-            onClick={() => handleWishlistClick("/wishlist")}
+            onClick={() => handleLinkClick("/wishlist")}
           >
             <Heart className="h-5 w-5" />
           </Button>
@@ -196,13 +197,13 @@ const Navbar = () => {
               align="end"
               className="w-52"
             >
-              <DropdownMenuItem onClick={() => handleWishlistClick("/profile")} className="cursor-pointer">
+              <DropdownMenuItem onClick={() => handleLinkClick("/profile")} className="cursor-pointer">
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleWishlistClick("/orders")} className="cursor-pointer">
+              <DropdownMenuItem onClick={() => handleLinkClick("/orders")} className="cursor-pointer">
                 Orders
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleWishlistClick("/wishlist")} className="cursor-pointer">
+              <DropdownMenuItem onClick={() => handleLinkClick("/wishlist")} className="cursor-pointer">
                 Wishlist
               </DropdownMenuItem>
               {
@@ -254,6 +255,7 @@ const Navbar = () => {
                     <Button
                       variant="ghost"
                       className="w-full justify-start"
+                      onClick={() => handleLinkClick("/orders")}
                     >
                       <Package className="mr-2 h-4 w-4" />
                       Orders
@@ -261,7 +263,7 @@ const Navbar = () => {
                     <Button
                       variant="ghost"
                       className="w-full justify-start"
-                      onClick={() => navigate("/whishlist")}
+                      onClick={() => handleLinkClick("/wishlist")}
                     >
                       <Heart className="mr-2 h-4 w-4" />
                       Wishlist

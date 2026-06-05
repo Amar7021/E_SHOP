@@ -163,9 +163,12 @@
    GLOBALS
 ========================================= */
 
-html,
+html {
+    height: 100%;
+}
+
 body {
-    min-height: 100vh;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
 
@@ -208,11 +211,6 @@ button {
     cursor: pointer;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
 img {
     display: block;
     max-width: 100%;
@@ -220,10 +218,6 @@ img {
 
 li {
     list-style: none;
-}
-
-.nav a {
-    color: var(--primary);
 }
 
 @theme inline {

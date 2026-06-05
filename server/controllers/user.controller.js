@@ -31,11 +31,18 @@ const registerUser = async (req, res) => {
       })
     }
 
+    const access_Token = await user.generateAccessToken()
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+    }
+
     setTimeout(() => {
-      return res.status(201).json({
+      return res.status(201).cookie("accessToken", access_Token, options).json({
         success: true,
         user: createdUser,
-        mssg: "User registered successfully",
+        message: "User account created successfully",
       })
     }, 1000)
   } catch (error) {
@@ -81,7 +88,7 @@ const loginUser = async (req, res) => {
       return res.status(200).cookie("accessToken", access_Token, options).json({
         success: true,
         user: loggedInUser,
-        mssg: "User Logged In Successfully",
+        message: "User signed in successfully",
       })
     }, 1000)
   } catch (error) {
