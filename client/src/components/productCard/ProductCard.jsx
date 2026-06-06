@@ -40,17 +40,19 @@ const ProductCard = ({ product, showAddToCartBtn = false }) => {
     addToWishList(item)
   }
 
-  console.log(showAddToCartBtn, "some", cartItems.some((item) => item.id === product?.id))
-
   return (
-    <div className="group overflow-hidden rounded-3xl border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <div className="relative overflow-hidden bg-muted" onClick={() => navigate(`/product-detail/${product.id}`)}>
-        <LazyLoadImage
-          src={product.thumbnail}
-          alt={product.title}
-          className="h-64 w-full object-cover transition duration-500 group-hover:scale-110"
-          placeholderSrc={"/assets/logo.png"}
-        />
+    <div className="group overflow-hidden rounded-3xl border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl min-w-[280px]">
+      <div className="relative overflow-hidden bg-muted"
+        onClick={() => navigate(`/product-detail/${product.id}`)}>
+        <div className="transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+          <LazyLoadImage
+            src={product.thumbnail}
+            alt={product.title}
+            className="h-64 w-full object-cover"
+            placeholderSrc={"/assets/logo.png"}
+            effect="blur"
+          />
+        </div>
 
         <div className="absolute left-3 top-3">
           <span className="rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">

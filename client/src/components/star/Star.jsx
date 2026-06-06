@@ -1,12 +1,10 @@
-import PropTypes from "prop-types"
 import { useWishListStore } from "../../store/wishListStore"
-import "./star.scss"
-import { Heart, StarIcon } from "lucide-react"
+import { Heart, HeartPlus, Star } from "lucide-react"
 import { useUserStore } from "@/store/userStore"
 import { useNavigate } from "react-router"
 import { toast } from "sonner"
 
-const Star = ({ stars, product }) => {
+const StarRating = ({ stars, product }) => {
   const favItems = useWishListStore((state) => state.favItems)
   const addToWishList = useWishListStore((state) => state.addToWishList)
   const removeFromWishList = useWishListStore((state) => state.removeFromWishList)
@@ -26,24 +24,26 @@ const Star = ({ stars, product }) => {
     }
 
     return (
-      <span key={index} className="stars" style={{ position: "relative", display: "inline-block" }}>
-        {starType === "full" && <StarIcon className="star_icon filled" />}
+      <span
+        key={index}
+        className="relative inline-block"
+      >
+        {starType === "full" && (
+          <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+        )}
+
         {starType === "half" && (
           <>
-            <StarIcon className="star_icon empty" />
-            <span style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "50%",
-              overflow: "hidden",
-              display: "inline-block"
-            }}>
-              <StarIcon className="star_icon filled" />
+            <Star className="h-5 w-5 fill-gray-300 text-gray-300" />
+            <span className="absolute left-0 top-0 inline-block w-1/2 overflow-hidden">
+              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
             </span>
           </>
         )}
-        {starType === "empty" && <StarIcon className="star_icon empty" />}
+
+        {starType === "empty" && (
+          <Star className="h-5 w-5 fill-gray-300 text-gray-300" />
+        )}
       </span>
     )
   })
@@ -55,7 +55,7 @@ const Star = ({ stars, product }) => {
         action: {
           label: "Sign In",
           onClick: () => navigate("/sign-in"),
-        }
+        },
       })
       return
     }
@@ -63,24 +63,31 @@ const Star = ({ stars, product }) => {
   }
 
   return (
-    <div className="star_rating">
-      <div>{ratingStar}</div>
+    <div className="flex items-center gap-2 justify-between w-full">
+      <div className="flex items-center gap-2">
+        <span className="text-sm">{product.rating}</span>
+        <div className="flex gap-1">
+          {ratingStar}
+        </div>
+        <span className="text-muted-foreground">
+          ({product.reviews?.length || 0})
+        </span>
+      </div>
       <div>
         {favItems.some((item) => item.id === product?.id) ? (
-          <Heart fill="#E9336D" strokeWidth={0} className="fav_icon"
-            onClick={() => removeFromWishList(product)} />
+          <Heart
+            className="h-6 w-6 cursor-pointer fill-[#E9336D] text-[#E9336D]"
+            onClick={() => removeFromWishList(product)}
+          />
         ) : (
-          <Heart className="fav_icon"
-            onClick={() => addToListHandler(product)} />
+          <HeartPlus
+            className="h-6 w-6 cursor-pointer"
+            onClick={() => addToListHandler(product)}
+          />
         )}
       </div>
     </div>
   )
 }
 
-export default Star
-
-Star.propTypes = {
-  stars: PropTypes.number,
-  product: PropTypes.object,
-}
+export default StarRating

@@ -22,8 +22,11 @@ const CartItem = ({ item, onAdd, onRemove, onDecrease }) => {
             <Link to={`/product-detail/${item.id}`}>
                 <div className="w-28 h-28">
                     <LazyLoadImage
-                        src={item.thumbnail}
+                        src={item?.thumbnail}
+                        alt={item?.title}
                         className="rounded-md object-cover w-28 h-28"
+                        effect="blur"
+                        placeholderSrc={"/assets/logo.png"}
                     />
                 </div>
             </Link>
@@ -66,7 +69,7 @@ const CartItem = ({ item, onAdd, onRemove, onDecrease }) => {
                             <AlertDialogHeader>
                                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    All items in your cart will be removed.
+                                    This item will be removed from your cart.
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>

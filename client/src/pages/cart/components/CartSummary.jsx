@@ -17,7 +17,7 @@ import { useCartStore } from "@/store/cartStore"
 const CartSummary = ({ total }) => {
     const clearCart = useCartStore(state => state.clearCart)
     return (
-        <Card className="p-5 h-fit sticky top-6 space-y-4">
+        <Card className="p-5 h-fit sticky top-20">
             <h2 className="text-lg font-semibold">Order Summary</h2>
 
             <div className="flex justify-between text-sm">

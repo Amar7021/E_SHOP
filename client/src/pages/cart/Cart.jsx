@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router"
-import { MoveLeft } from "lucide-react"
+import { ArrowLeft, MoveLeft } from "lucide-react"
 import Navbar from "../../components/common/navbar/Navbar"
 import Footer from "../../components/common/footer/Footer"
 import { useCartStore } from "../../store/cartStore"
@@ -27,17 +27,16 @@ const Cart = () => {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-background mt-16">
+      <main className="min-h-screen bg-background">
         <div className="max-w-6xl mx-auto px-4 py-10">
-          <div className="flex items-center gap-3 mb-6">
-            <button
-              onClick={() => navigate("/category/all")}
-              className="p-2 rounded-md hover:bg-muted transition"
-            >
-              <MoveLeft size={20} />
-            </button>
-            <h1 className="text-2xl font-semibold">Shopping Cart</h1>
-          </div>
+          <button
+            onClick={() => navigate("/category/all")}
+            className="mb-8 flex items-center gap-2 text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft size={18} />
+            Continue Shopping
+          </button>
+          <h1 className="text-4xl font-bold mb-3">Shopping Cart</h1>
           {cartItems.length === 0 ? (
             <CartEmpty />
           ) : (

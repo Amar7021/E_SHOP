@@ -194,13 +194,6 @@ body {
 
 input,
 textarea,
-button,
-select {
-    font: inherit;
-}
-
-input,
-textarea,
 select {
     border: 1px solid var(--border);
     background: var(--card);
