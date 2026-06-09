@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Trash2 } from "lucide-react"
-import { LazyLoadImage } from "react-lazy-load-image-component"
 import { Link } from "react-router"
 import {
     AlertDialog,
@@ -21,12 +20,10 @@ const CartItem = ({ item, onAdd, onRemove, onDecrease }) => {
         <Card className="p-4 flex flex-col md:flex-row gap-4">
             <Link to={`/product-detail/${item.id}`}>
                 <div className="w-28 h-28">
-                    <LazyLoadImage
+                    <img
                         src={item?.thumbnail}
                         alt={item?.title}
                         className="rounded-md object-cover w-28 h-28"
-                        effect="blur"
-                        placeholderSrc={"/assets/logo.png"}
                     />
                 </div>
             </Link>

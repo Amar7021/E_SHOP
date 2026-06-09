@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router"
-import { LazyLoadImage } from "react-lazy-load-image-component"
 import {
   Star,
   ShoppingCart,
   Heart,
   Truck,
+  HeartPlus,
 } from "lucide-react"
 import { useCartStore } from "@/store/cartStore"
 import { useWishListStore } from "@/store/wishListStore"
@@ -45,12 +45,10 @@ const ProductCard = ({ product, showAddToCartBtn = false }) => {
       <div className="relative overflow-hidden bg-muted"
         onClick={() => navigate(`/product-detail/${product.id}`)}>
         <div className="transition-transform duration-500 group-hover:scale-110 cursor-pointer">
-          <LazyLoadImage
+          <img
             src={product.thumbnail}
             alt={product.title}
             className="h-64 w-full object-cover"
-            placeholderSrc={"/assets/logo.png"}
-            effect="blur"
           />
         </div>
 
@@ -71,7 +69,7 @@ const ProductCard = ({ product, showAddToCartBtn = false }) => {
             e.stopPropagation();
             addToListHandler(product)
           }}>
-            <Heart size={18} />
+            <HeartPlus size={18} />
           </button>
         )}
       </div>
@@ -123,7 +121,6 @@ const ProductCard = ({ product, showAddToCartBtn = false }) => {
             ? "In Stock"
             : `Only ${product.stock} Left`}
         </div>
-
         {showAddToCartBtn && (cartItems.some((item) => item.id === product?.id) ? (<button className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-medium text-primary-foreground transition hover:opacity-90"
           onClick={() => navigate("/cart")}
         >

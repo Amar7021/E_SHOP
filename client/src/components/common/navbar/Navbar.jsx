@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { Link, NavLink, useLocation, useNavigate } from "react-router"
 import {
   Menu,
@@ -32,7 +31,7 @@ import { toast } from "sonner"
 const Navbar = ({ noSearchBar = true }) => {
   const location = useLocation()
   const navigate = useNavigate()
-  const loading = useUserStore((state) => state.loading)
+  // const loading = useUserStore((state) => state.loading)
   const logoutStarted = useUserStore((state) => state.logoutStarted)
   const logoutSuccess = useUserStore((state) => state.logoutSuccess)
   const logoutFailed = useUserStore((state) => state.logoutFailed)
@@ -41,12 +40,7 @@ const Navbar = ({ noSearchBar = true }) => {
 
   const dontShowIfSignInOrSignUp = !(location.pathname === "/sign-in" || location.pathname === "/sign-up")
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }, [location])
+
 
   const navLinks = [
     {
@@ -197,12 +191,12 @@ const Navbar = ({ noSearchBar = true }) => {
               align="end"
               className="w-52"
             >
-              <DropdownMenuItem onClick={() => handleLinkClick("/profile")} className="cursor-pointer">
+              {/* <DropdownMenuItem onClick={() => handleLinkClick("/profile")} className="cursor-pointer">
                 Profile
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => handleLinkClick("/orders")} className="cursor-pointer">
                 Orders
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem onClick={() => handleLinkClick("/wishlist")} className="cursor-pointer">
                 Wishlist
               </DropdownMenuItem>
