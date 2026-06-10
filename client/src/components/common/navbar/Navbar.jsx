@@ -146,7 +146,7 @@ const Navbar = ({ noSearchBar = true }) => {
           ))}
         </nav> */}
 
-        {dontShowIfSignInOrSignUp && noSearchBar && <div className="hidden w-full max-w-md lg:flex">
+        {/* {dontShowIfSignInOrSignUp && noSearchBar && <div className="hidden w-full max-w-md lg:flex">
           <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -154,7 +154,7 @@ const Navbar = ({ noSearchBar = true }) => {
               className="pl-10"
             />
           </div>
-        </div>}
+        </div>} */}
         <div className="flex items-center gap-2">
           {
             !currentUser && (<div>
