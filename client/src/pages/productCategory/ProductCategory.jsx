@@ -116,25 +116,27 @@ const ProductCategory = () => {
                             Browse products in this category
                         </p>
                     </div>
-                    <Select
-                        value={sortBy}
-                        onValueChange={setSortBy}
-                    >
-                        <SelectTrigger className="w-[220px]">
-                            <SelectValue placeholder="Sort products" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="price-low">
-                                Price: Low to High
-                            </SelectItem>
-                            <SelectItem value="price-high">
-                                Price: High to Low
-                            </SelectItem>
-                            <SelectItem value="rating">
-                                Highest Rated
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
+                    {
+                        !loading && <Select
+                            value={sortBy}
+                            onValueChange={setSortBy}
+                        >
+                            <SelectTrigger className="w-[220px]">
+                                <SelectValue placeholder="Sort products" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="price-low">
+                                    Price: Low to High
+                                </SelectItem>
+                                <SelectItem value="price-high">
+                                    Price: High to Low
+                                </SelectItem>
+                                <SelectItem value="rating">
+                                    Highest Rated
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                    }
                 </div>
                 {!loading && products.length === 0 && (
                     <div className="flex flex-col items-center justify-center py-20 text-center">

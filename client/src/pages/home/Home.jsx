@@ -35,7 +35,7 @@ const Home = () => {
   return (
     <>
       {
-        loading ? <HomeSkeleton /> : <>
+        loading ? <HomeSkeleton /> : <main className="min-h-screen bg-background mt-12 mb-16 mx-5 px-6 max-[480px]:px-0">
           <section className="mx-auto max-w-7xl py-4">
             <HeroCarousel />
           </section>
@@ -153,7 +153,7 @@ const Home = () => {
               </div>
             </div>
           </section>
-        </>
+        </main>
       }
     </>
   )

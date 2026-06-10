@@ -65,7 +65,7 @@ const ProductDetail = () => {
   if (!product) return <ProductDetailSkeleton />
 
   return (
-    <>
+    <main className="min-h-screen bg-background mt-12 mb-16 mx-5 px-6 max-[480px]:px-0">
       <button
         onClick={() => navigate(-1)}
         className="mb-4 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
@@ -302,7 +302,7 @@ const ProductDetail = () => {
           </TabsContent>
         </Tabs>
       </section>
-    </>
+    </main>
   )
 }
 

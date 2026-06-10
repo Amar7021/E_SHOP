@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 const HomeSkeleton = () => {
     return (
-        <>
-            <section className="mx-auto max-w-7xl py-6">
+        <main className="min-h-screen bg-background mt-12 mb-16 mx-5 px-6 max-[480px]:px-0">
+            <section className="mx-auto max-w-7xl py-4">
                 <Skeleton className="h-[450px] w-full rounded-xl" />
             </section>
             <section className="mx-auto max-w-7xl py-16">
@@ -43,10 +43,10 @@ const HomeSkeleton = () => {
                     </div>
                 </div>
             </section>
-            <section className="mx-auto max-w-7xl pb-16">
+            <section className="mx-auto max-w-7xl pb-4">
                 <Skeleton className="h-[300px] w-full rounded-3xl" />
             </section>
-        </>
+        </main>
     )
 }
 

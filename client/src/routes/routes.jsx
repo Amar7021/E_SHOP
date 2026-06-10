@@ -6,6 +6,8 @@ import SignUp from "@/pages/signUp/SignUp"
 import ProtectedRoutes from "@/components/ProtectedRoutes"
 import NoMatch from "@/pages/noMatch/NoMatch"
 import RootLayout from "@/components/layouts/RootLayout";
+import Playground from "@/pages/playground/Playground";
+import RouteError from "@/components/routeError/RouteError";
 
 //------------ LAZY LOADING OF COMPONENTS ----------
 const LazyHome = lazy(() => import("@/pages/home/Home"))
@@ -18,6 +20,7 @@ const LazyProductCategory = lazy(() => import("@/pages/productCategory/ProductCa
 const router = createBrowserRouter([
     {
         Component: RootLayout,
+        errorElement: <RouteError />,
         children: [
             {
                 path: "/",
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
                         <LazyHome />
                     </Suspense>
                 ),
+            },
+            {
+                path: "/playground",
+                element: <Playground name={undefined} />,
             },
             {
                 path: "/product-detail/:id",

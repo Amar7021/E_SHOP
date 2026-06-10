@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 const ProductDetailSkeleton = () => {
     return (
-        <>
+        <main className="min-h-screen bg-background mt-12 mb-16 mx-5 px-6 max-[480px]:px-0">
             <Skeleton className="mb-8 h-5 w-20" />
             <div className="grid gap-8 lg:grid-cols-2">
                 <div className="self-start">
@@ -20,7 +20,6 @@ const ProductDetailSkeleton = () => {
                     </div>
                 </div>
                 <div>
-
                     <Skeleton className="h-6 w-24 rounded-full" />
 
                     <div className="mt-4 space-y-3">
@@ -82,7 +81,7 @@ const ProductDetailSkeleton = () => {
                     </CardContent>
                 </Card>
             </section>
-        </>
+        </main>
     )
 }
 

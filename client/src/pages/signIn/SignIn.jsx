@@ -64,8 +64,8 @@ const SignIn = () => {
   };
 
   return (
-    <>
-      <div className="grid min-h-[calc(100vh-7rem)] w-full max-w-6xl gap-10 place-items-center lg:grid-cols-2 mx-auto">
+    <main className="flex items-center justify-center bg-background mt-16 mb-16 mx-5 px-6 max-[480px]:px-0">
+      <div className="grid w-full max-w-6xl gap-10 place-items-center lg:grid-cols-2 mx-auto">
         <div className="hidden lg:flex flex-col justify-center">
           <div className="max-w-md">
             <div className="mb-4 flex items-center gap-3">
@@ -194,7 +194,7 @@ const SignIn = () => {
           </CardContent>
         </Card>
       </div>
-    </>
+    </main>
   );
 };
 

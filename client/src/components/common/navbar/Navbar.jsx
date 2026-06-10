@@ -27,8 +27,10 @@ import { useUserStore } from "@/store/userStore"
 import axios from "../../../services/helper"
 import { useCartStore } from "@/store/cartStore"
 import { toast } from "sonner"
+import { useState } from "react"
 
 const Navbar = ({ noSearchBar = true }) => {
+  const [sheetOpen, setSheetOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   // const loading = useUserStore((state) => state.loading)
@@ -47,18 +49,18 @@ const Navbar = ({ noSearchBar = true }) => {
       title: "Home",
       path: "/",
     },
-    {
-      title: "Products",
-      path: "/products",
-    },
+    // {
+    //   title: "Products",
+    //   path: "/products",
+    // },
     {
       title: "Categories",
-      path: "/categories",
+      path: "/category/all",
     },
-    {
-      title: "Deals",
-      path: "/deals",
-    },
+    // {
+    //   title: "Deals",
+    //   path: "/deals",
+    // },
   ]
 
   const handleLinkClick = (path) => {
@@ -75,6 +77,27 @@ const Navbar = ({ noSearchBar = true }) => {
       return
     }
     navigate(path)
+  }
+
+  const handleMobileNavigation = (path) => {
+    const slicedPath = path.slice(1)
+    setSheetOpen(false)
+
+    if (!currentUser) {
+      toast.error(`Please sign in to view ${slicedPath}`, {
+        position: "bottom-right"
+      })
+      navigate("/sign-in", {
+        state: {
+          from: location
+        }
+      })
+      return
+    }
+
+    setTimeout(() => {
+      navigate(path)
+    }, 300)
   }
 
   const handleLogout = async () => {
@@ -208,7 +231,7 @@ const Navbar = ({ noSearchBar = true }) => {
             </DropdownMenuContent>
           </DropdownMenu>
           {
-            dontShowIfSignInOrSignUp && <Sheet>
+            dontShowIfSignInOrSignUp && <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -238,26 +261,31 @@ const Navbar = ({ noSearchBar = true }) => {
                     {navLinks.map((item) => (
                       <Link
                         key={item.path}
-                        to={item.path}
+                        to={"#"}
                         className="text-sm font-medium hover:bg-muted/50 px-4 py-2 rounded-lg"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          handleMobileNavigation(item.path)
+                        }}
                       >
                         {item.title}
                       </Link>
                     ))}
                   </nav>
                   <div className="border-t pt-4">
-                    <Button
+                    {/* <Button
                       variant="ghost"
                       className="w-full justify-start"
-                      onClick={() => handleLinkClick("/orders")}
+                      onClick={() => handleMobileNavigation("/orders")}
                     >
                       <Package className="mr-2 h-4 w-4" />
                       Orders
-                    </Button>
+                    </Button> */}
                     <Button
                       variant="ghost"
                       className="w-full justify-start"
-                      onClick={() => handleLinkClick("/wishlist")}
+                      // onClick={() => handleLinkClick("/wishlist")}
+                      onClick={() => handleMobileNavigation("/wishlist")}
                     >
                       <Heart className="mr-2 h-4 w-4" />
                       Wishlist

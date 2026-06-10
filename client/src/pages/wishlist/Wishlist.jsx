@@ -29,7 +29,7 @@ const Wishlist = () => {
   const navigate = useNavigate()
 
   return (
-    <>
+    <main className="min-h-screen bg-background mt-12 mb-16 mx-5 px-6 max-[480px]:px-0">
       <button
         onClick={() => navigate("/category/all")}
         className="mb-4 flex items-center gap-2 text-muted-foreground hover:text-foreground"
@@ -138,7 +138,7 @@ const Wishlist = () => {
           </>
         )}
       </div>
-    </>
+    </main>
   )
 }
 

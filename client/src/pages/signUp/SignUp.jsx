@@ -69,7 +69,7 @@ const SignUp = () => {
   }
 
   return (
-    <>
+    <main className="flex items-center justify-center bg-background mt-16 mb-16 mx-5 px-6 max-[480px]:px-0">
       <div className="grid min-h-full w-full max-w-6xl gap-10 place-items-center lg:grid-cols-2 mx-auto">
         <div className="hidden lg:flex flex-col justify-center">
           <div className="max-w-md">
@@ -226,7 +226,7 @@ const SignUp = () => {
           </CardContent>
         </Card>
       </div>
-    </>
+    </main>
   )
 }
 
