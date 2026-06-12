@@ -28,7 +28,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <Link
-                  to="/products"
+                  to="/category/all"
                   className="hover:text-primary"
                 >
                   All Products
@@ -36,7 +36,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/categories"
+                  to="/category/all"
                   className="hover:text-primary"
                 >
                   Categories
@@ -44,7 +44,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/deals"
+                  to="#"
                   className="hover:text-primary"
                 >
                   Deals & Offers
@@ -52,7 +52,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/new-arrivals"
+                  to="#"
                   className="hover:text-primary"
                 >
                   New Arrivals
@@ -67,7 +67,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <Link
-                  to="/contact"
+                  to="#"
                   className="hover:text-primary"
                 >
                   Contact Us
@@ -75,7 +75,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/faq"
+                  to="#"
                   className="hover:text-primary"
                 >
                   FAQs
@@ -83,7 +83,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/shipping"
+                  to="#"
                   className="hover:text-primary"
                 >
                   Shipping Policy
@@ -91,7 +91,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/returns"
+                  to="#"
                   className="hover:text-primary"
                 >
                   Returns & Refunds
